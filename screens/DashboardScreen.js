@@ -6,11 +6,13 @@ import {
   SafeAreaView,
   Pressable,
   ScrollView,
-  Image,
 } from "react-native";
+import ActionCard from "../components/ActionCard";
+import ActivityItem from "../components/ActivityItem";
 
 export default function DashboardScreen({ route, navigation }) {
-  const {userName} = route.params || {userName: "Eco-Warrior"};
+  const userName = route.params?.user?.name || "Eco-Warrior";
+  
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -41,55 +43,44 @@ export default function DashboardScreen({ route, navigation }) {
 
         <Text style={styles.sectionTitle}>Quick Actions</Text>
         <View style={styles.gridContainer}>
-          <Pressable
-            style={[styles.actionCard, styles.scanCard]}
+          {/* Correctly using the self-closing ActionCard component */}
+          <ActionCard
+            icon="📷"
+            text="Scan to Deposit"
+            isPrimary={true}
             onPress={() => navigation.navigate("QRScreen")}
-          >
-            <Text style={styles.actionIcon}>📷</Text>
-            <Text style={styles.actionText}>Scan to Deposit</Text>
-          </Pressable>
-
-          <Pressable
-            style={styles.actionCard}
+          />
+          <ActionCard
+            icon="🗺️"
+            text="Find Bin"
+            isPrimary={false}
             onPress={() => navigation.navigate("EcoMap")}
-          >
-            <Text style={styles.actionIcon}>🗺️</Text>
-            <Text style={styles.actionText}>Find Bin</Text>
-          </Pressable>
+          />
         </View>
 
         <Text style={styles.sectionTitle}>Recent Activity</Text>
         <View style={styles.activityList}>
-          <View style={styles.activityItem}>
-            <View style={styles.activityIconBg}>
-              <Text>♻️</Text>
-            </View>
-            <View style={styles.activityInfo}>
-              <Text style={styles.activityTitle}>Deposited Plastic</Text>
-              <Text style={styles.activityDate}>Feb 10, 2:30 PM</Text>
-            </View>
-            <Text style={styles.activityPoints}>+10 pts</Text>
-          </View>
-
-          <View style={styles.activityItem}>
-            <View style={styles.activityIconBg}>
-              <Text>🎟️</Text>
-            </View>
-            <View style={styles.activityInfo}>
-              <Text style={styles.activityTitle}>Redeemed Voucher</Text>
-              <Text style={styles.activityDate}>Feb 08, 9:15 AM</Text>
-            </View>
-            <Text style={[styles.activityPoints, styles.negativePoints]}>
-              -50 pts
-            </Text>
-          </View>
+          {/* Correctly replacing the long View blocks with ActivityItem */}
+          <ActivityItem
+            icon="♻️"
+            title="Deposited Plastic"
+            date="Feb 10, 2:30 PM"
+            points="+10 pts"
+            isNegative={false}
+          />
+          <ActivityItem
+            icon="🎟️"
+            title="Redeemed Voucher"
+            date="Feb 08, 9:15 AM"
+            points="-50 pts"
+            isNegative={true}
+          />
         </View>
       </ScrollView>
     </SafeAreaView>
   );
 }
 
-// Colors from your existing theme
 const BROWN = "#4A3B13";
 const GREEN_ACCENT = "#8A9468";
 
@@ -119,7 +110,7 @@ const styles = StyleSheet.create({
     width: 44,
     height: 44,
     borderRadius: 22,
-    backgroundColor: "#E9DEC9", // Beige from landing
+    backgroundColor: "#E9DEC9",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -173,75 +164,11 @@ const styles = StyleSheet.create({
     gap: 15,
     marginBottom: 30,
   },
-  actionCard: {
-    flex: 1,
-    backgroundColor: "#fff",
-    padding: 20,
-    borderRadius: 15,
-    alignItems: "center",
-    borderWidth: 1,
-    borderColor: "#eee",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 3,
-    elevation: 2,
-  },
-  scanCard: {
-    backgroundColor: GREEN_ACCENT, // Highlight the primary action
-    borderColor: GREEN_ACCENT,
-  },
-  actionIcon: {
-    fontSize: 28,
-    marginBottom: 8,
-  },
-  actionText: {
-    fontWeight: "600",
-    color: "#333",
-  },
   activityList: {
     backgroundColor: "#fff",
     borderRadius: 15,
     padding: 10,
     borderWidth: 1,
     borderColor: "#eee",
-  },
-  activityItem: {
-    flexDirection: "row",
-    alignItems: "center",
-    paddingVertical: 12,
-    paddingHorizontal: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: "#f0f0f0",
-  },
-  activityIconBg: {
-    width: 36,
-    height: 36,
-    backgroundColor: "#F0F5F0",
-    borderRadius: 18,
-    justifyContent: "center",
-    alignItems: "center",
-    marginRight: 12,
-  },
-  activityInfo: {
-    flex: 1,
-  },
-  activityTitle: {
-    fontSize: 14,
-    fontWeight: "600",
-    color: "#333",
-  },
-  activityDate: {
-    fontSize: 12,
-    color: "#888",
-    marginTop: 2,
-  },
-  activityPoints: {
-    fontSize: 14,
-    fontWeight: "bold",
-    color: GREEN_ACCENT,
-  },
-  negativePoints: {
-    color: "#D32F2F",
   },
 });

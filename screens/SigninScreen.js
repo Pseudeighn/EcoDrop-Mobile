@@ -37,7 +37,7 @@ export default function SigninScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.safe}>
       <Image
-        source={require("../../assets/SigninBG.png")}
+        source={require("../assets/SigninBG.png")}
         style={styles.backgroundImg}
         resizeMode="cover"
       />
@@ -101,7 +101,7 @@ export default function SigninScreen({ navigation }) {
               onPress={() => alert("Google")}
             >
               <Image
-                source={require("../../assets/GoogleLogo.png")}
+                source={require("../assets/GoogleLogo.png")}
                 style={styles.socialLogo}
                 resizeMode="contain"
               />
@@ -113,7 +113,7 @@ export default function SigninScreen({ navigation }) {
               onPress={() => alert("Facebook")}
             >
               <Image
-                source={require("../../assets/FacebookLogo.png")}
+                source={require("../assets/FacebookLogo.png")}
                 style={styles.socialLogo}
                 resizeMode="contain"
               />

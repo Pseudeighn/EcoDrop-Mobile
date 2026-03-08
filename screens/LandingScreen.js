@@ -100,7 +100,7 @@ export default function LandingScreen({ navigation }) {
 
       <Animated.View style={[styles.logoContainer, { opacity: fadeTransition }]}>
         <Image
-          source={require("../../assets/Trubbish.png")}
+          source={require("../assets/Trubbish.png")}
           style={styles.logo}
           resizeMode="contain"
         />

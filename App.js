@@ -2,14 +2,14 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import LandingScreen from "./Components/screens/LandingScreen";
-import SigninScreen from "./Components/screens/SigninScreen";
-import SignupScreen from "./Components/screens/SignupScreen";
-import DashboardScreen from "./Components/screens/DashboardScreen";
-import EcoMapScreen from "./Components/screens/EcoMapScreen";
-import QRScreen from "./Components/screens/QRScreen";
-import WalletScreen from "./Components/screens/WalletScreen";
-import ProfileScreen from "./Components/screens/ProfileScreen";
+import LandingScreen from "./screens/LandingScreen";
+import SigninScreen from "./screens/SigninScreen";
+import SignupScreen from "./screens/SignupScreen";
+import DashboardScreen from "./screens/DashboardScreen";
+import EcoMapScreen from "./screens/EcoMapScreen";
+import QRScreen from "./screens/QRScreen";
+import WalletScreen from "./screens/WalletScreen";
+import ProfileScreen from "./screens/ProfileScreen";
 
 const Stack = createNativeStackNavigator();
 

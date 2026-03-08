@@ -22,7 +22,7 @@ export default function SignupScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.safe}>
       <Image
-        source={require("../../assets/SignupBG.png")}
+        source={require("../assets/SignupBG.png")}
         style={styles.backgroundImg}
         resizeMode="cover"
       />
