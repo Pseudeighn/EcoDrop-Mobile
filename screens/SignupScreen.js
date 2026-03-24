@@ -103,7 +103,7 @@ export default function SignupScreen({ navigation }) {
               {agree && <View style={styles.checkboxChecked} />}
             </View>
             <Text style={styles.agreeText}>
-              I agree to the Terms and Conditions
+              I agree to the Terms and Conditions.
             </Text>
           </Pressable>
 
@@ -226,6 +226,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  small: { fontSize: 12, color: "#1F2937", opacity: 0.8 },
+  small: { fontSize: 14, color: "#1F2937", opacity: 0.8 },
   link: { color: BROWN, fontWeight: "700" },
 });

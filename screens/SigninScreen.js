@@ -15,16 +15,12 @@ export default function SigninScreen({ navigation }) {
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
 
-  // -----------------------------
-  // Updated handleSignIn
-  // -----------------------------
   const handleSignIn = () => {
     if (!email || !password) {
       alert("Please enter email and password");
       return;
     }
 
-    // Temporary mock user object
     const extractedName = email.split("@")[0];
     const user = {
       name: extractedName.charAt(0).toUpperCase() + extractedName.slice(1),
@@ -84,7 +80,7 @@ export default function SigninScreen({ navigation }) {
               </View>
               <Text style={styles.rememberText}>Remember Me</Text>
             </Pressable>
-            <Pressable onPress={() => alert("Forgot password pressed")}>
+            <Pressable onPress={() => alert("Forgot password pressed.")}>
               <Text style={[styles.rememberText, styles.link]}>Forgot Password?</Text>
             </Pressable>
           </View>
@@ -133,9 +129,6 @@ export default function SigninScreen({ navigation }) {
   );
 }
 
-// -----------------------------
-// Styles (unchanged)
-// -----------------------------
 const BG = "#8A9468";
 const BROWN = "#4A3B13";
 
@@ -200,12 +193,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   checkboxChecked: { width: 10, height: 10, backgroundColor: BROWN, borderRadius: 1 },
-  rememberText: { fontSize: 14, color: "#1F2937", opacity: 0.8 },
-  small: { fontSize: 12, color: "#1F2937", opacity: 0.8 },
+  rememberText: { fontSize: 15, fontWeight: 'bold', color: "#4A3B13", opacity: 0.8 },
+  small: { fontSize: 15, color: "#1F2937", opacity: 0.8 },
   link: { color: BROWN, fontWeight: "700" },
   primaryBtn: { backgroundColor: BROWN, paddingVertical: 14, borderRadius: 10, alignItems: "center", marginTop: 2 },
   primaryBtnText: { color: "#fff", fontWeight: "800", letterSpacing: 1 },
-  orText: { textAlign: "center", marginVertical: 12, fontSize: 11, opacity: 0.6 },
+  orText: { textAlign: "center", marginVertical: 12, fontSize: 12, opacity: 0.6 },
   socialRow: { flexDirection: "row", gap: 12 },
   socialBtn: { flex: 1, paddingVertical: 12, borderRadius: 10, alignItems: "center", justifyContent: "center", backgroundColor: "#fff", flexDirection: "row", gap: 8 },
   google: { opacity: 0.95 },
