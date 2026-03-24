@@ -10,6 +10,7 @@ import {
   StatusBar,
 } from "react-native";
 import { CameraView, useCameraPermissions } from "expo-camera";
+import BottomNavBar from "../components/BottomNavBar";
 
 const { width, height } = Dimensions.get("window");
 
@@ -228,6 +229,8 @@ export default function QRScreen({ navigation }) {
             </Pressable>
           )}
         </View>
+
+        <BottomNavBar navigation={navigation} activeScreen="QRScreen"/>
 
       </SafeAreaView>
     </ImageBackground>
