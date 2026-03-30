@@ -3,7 +3,6 @@ import {
   View,
   Text,
   StyleSheet,
-  SafeAreaView,
   Pressable,
   ScrollView,
   Image,
@@ -11,6 +10,7 @@ import {
   Dimensions,
   StatusBar,
 } from "react-native";
+import {SafeAreaView} from "react-native-safe-area-context";
 import BottomNavBar from "../components/BottomNavBar";
 
 const { width } = Dimensions.get("window");
