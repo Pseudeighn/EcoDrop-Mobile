@@ -5,9 +5,9 @@ import {
   StyleSheet,   
   TextInput,
   Pressable,
-  SafeAreaView,
   Image,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function SigninScreen({ navigation }) {
   const [email, setEmail] = useState("");

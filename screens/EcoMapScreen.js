@@ -4,9 +4,9 @@ import {
   Text,
   StyleSheet,
   Pressable,
-  SafeAreaView,
   Animated,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function EcoMapScreen({ navigation }) {
   const [menuVisible, setMenuVisible] = useState(false);
