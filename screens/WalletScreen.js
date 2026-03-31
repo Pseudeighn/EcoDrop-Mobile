@@ -3,10 +3,11 @@ import {
   View,
   Text,
   StyleSheet,
-  SafeAreaView,
+  ScrollView,
   Pressable,
-  Image,
-} from "react-native";
+} from "react-native"; 
+import { SafeAreaView } from "react-native-safe-area-context";
+import BottomNavBar from "../components/BottomNavBar";
 
 export default function WalletScreen({ navigation }) {
   // Sample rewards data
@@ -38,73 +39,113 @@ export default function WalletScreen({ navigation }) {
   ];
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <Pressable
-          style={styles.backButton}
-          onPress={() => navigation.goBack()}
-        >
-          <Text style={styles.backIcon}>←</Text>
-        </Pressable>
-        <Text style={styles.title}>Wallet</Text>
-      </View>
-
-      <View style={styles.scrollArea}>
-        {/* Rewards Card */}
-        <View style={styles.rewardsCard}>
-          <View style={styles.rewardsCardHeader}>
-            <Text style={styles.loyaltyLabel}>Loyalty Card</Text>
-            <View style={styles.goldBadge}><Text style={styles.goldBadgeText}>🏅 Bronze</Text></View>
-          </View>
-          <Text style={styles.rewardsPointsBig}>20,525</Text>
-          <Text style={styles.pointsLabel}>Current Points</Text>
-          <View style={styles.trophyRow}>
-            <Text style={styles.expiryText}>Expiry 06/26</Text>
-            <Text style={styles.trophyIcon}>🏆</Text>
+    <SafeAreaView style={styles.safe}>
+      <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
+        <Text style={styles.headerTitle}>My Eco-Wallet</Text>
+        {/* 1. The Balance Card */}
+        <View style={styles.balanceCard}>
+          <Text style={styles.balanceLabel}>AVAILABLE ECO-POINTS</Text>
+          <Text style={styles.balancePoints}>1,250</Text>
+          <View style={styles.tierBadge}>
+            <Text style={styles.tierText}>Bronze Tier</Text>
           </View>
         </View>
-
-        {/* Best Buy Section */}
-        <Text style={styles.sectionTitle}>Exchange Rewards</Text>
-        <View style={styles.rewardsGrid}>
-          {rewards.map((item) => (
-            <View key={item.id} style={styles.rewardItem}>
-              <View style={styles.rewardImageWrap}>
-                <Image source={{ uri: item.image }} style={styles.rewardImage} resizeMode="contain" />
-              </View>
-              <Text style={styles.rewardName}>{item.name}</Text>
-              <Pressable style={styles.useBtn}>
-                <Text style={styles.useBtnText}>Use <Text style={styles.coin}>🪙</Text> {item.points}</Text>
-              </Pressable>
-            </View>
-          ))}
+        {/* 2. Available Rewards Section */}
+        <Text style={styles.sectionTitle}>Redeem Rewards</Text>
+        <View style={styles.rewardCard}>
+          <View style={styles.rewardInfo}>
+             <Text style={styles.rewardEmoji}>☕</Text>
+             <View>
+               <Text style={styles.rewardTitle}>Free Coffee Voucher (Any Size)</Text>
+               <Text style={styles.rewardSub}>Local Cafe Partner</Text>
+             </View>
+          </View>
+          <Pressable style={styles.redeemBtn}>
+            <Text style={styles.redeemText}>300 pts</Text>
+          </Pressable>
         </View>
+        <View style={styles.rewardCard}>
+          <View style={styles.rewardInfo}>
+             <Text style={styles.rewardEmoji}>🌱</Text>
+             <View>
+               <Text style={styles.rewardTitle}>Reusable Tote Bag Voucher</Text>
+               <Text style={styles.rewardSub}>EcoDrop Merch</Text>
+             </View>
+          </View>
+          <Pressable style={styles.redeemBtn}>
+            <Text style={styles.redeemText}>500 pts</Text>
+          </Pressable>
+        </View>
+        {/* 3. Transaction History Section */}
+        <Text style={[styles.sectionTitle, { marginTop: 10 }]}>Recent Transactions</Text>
+        <View style={styles.historyItem}>
+          <View>
+            <Text style={styles.historyTitle}>Deposited 5kg Plastic</Text>
+            <Text style={styles.historyDate}>Today, 2:30 PM</Text>
+          </View>
+          <Text style={styles.pointsEarned}>+ 50 pts</Text>
+        </View>
+        <View style={styles.historyItem}>
+          <View>
+            <Text style={styles.historyTitle}>Redeemed Coffee</Text>
+            <Text style={styles.historyDate}>Yesterday, 9:15 AM</Text>
+          </View>
+          <Text style={styles.pointsSpent}>- 300 pts</Text>
+        </View>
+      </ScrollView>
+      {/* Footer Navigation */}
+      <View style={styles.navWrapper}>
+        <BottomNavBar navigation={navigation} activeScreen="Wallet" />
       </View>
     </SafeAreaView>
   );
 }
 
-const BUTTON_COLOR = "#4C3D19";
-
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-  },
-  header: {
-    flexDirection: "row",
+  safe: { flex: 1, backgroundColor: COLORS.darkBg },
+  scrollContent: { paddingHorizontal: 20, paddingTop: 20, paddingBottom: 100 },
+  headerTitle: { fontSize: 24, fontWeight: "800", color: COLORS.bone, marginBottom: 20 },
+  
+  balanceCard: {
+    backgroundColor: COLORS.kombuGreen,
+    borderRadius: 20,
+    padding: 24,
     alignItems: "center",
-    paddingHorizontal: 16,
-    paddingTop: 16,
-    paddingBottom: 12,
+    marginBottom: 30,
+    borderWidth: 1,
+    borderColor: "rgba(136,144,99,0.3)",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    elevation: 5,
   },
-  backButton: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
-    backgroundColor: BUTTON_COLOR,
-    opacity: 0.7,
-    justifyContent: "center",
+  balanceLabel: { fontSize: 12, color: COLORS.mossGreen, fontWeight: "700", letterSpacing: 1.5, marginBottom: 8 },
+  balancePoints: { fontSize: 48, fontWeight: "900", color: COLORS.bone, marginBottom: 12 },
+  tierBadge: { backgroundColor: "rgba(136,144,99,0.2)", paddingHorizontal: 12, paddingVertical: 6, borderRadius: 12 },
+  tierText: { color: COLORS.mossGreen, fontSize: 12, fontWeight: "700" },
+  
+  sectionTitle: { fontSize: 14, fontWeight: "700", color: COLORS.mossGreen, textTransform: "uppercase", marginBottom: 15, letterSpacing: 1 },
+  
+  rewardCard: {
+    flexDirection: "row",
+    backgroundColor: "#2A321F",
+    borderRadius: 16,
+    padding: 16,
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: 12,
+  },
+  rewardInfo: { flexDirection: "row", alignItems: "center", gap: 12 },
+  rewardEmoji: { fontSize: 28 },
+  rewardTitle: { fontSize: 15, fontWeight: "700", color: COLORS.bone },
+  rewardSub: { fontSize: 12, color: COLORS.mossGreen, marginTop: 4 },
+  redeemBtn: { backgroundColor: COLORS.mossGreen, paddingVertical: 8, paddingHorizontal: 16, borderRadius: 8 },
+  redeemText: { color: COLORS.darkBg, fontSize: 12, fontWeight: "800" },
+
+  historyItem: {
+    flexDirection: "row",
+    justifyContent: "space-between",
     alignItems: "center",
     marginRight: 12,
   },
@@ -118,133 +159,13 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     color: "#333",
   },
-  scrollArea: {
+  content: {
     flex: 1,
-    padding: 16,
-    backgroundColor: '#E5D7C4',
+    justifyContent: "center",
+    alignItems: "center",
   },
-  rewardsCard: {
-    backgroundColor: '#354024',
-    borderRadius: 18,
-    padding: 20,
-    marginBottom: 24,
-    shadowColor: '#000',
-    shadowOpacity: 0.12,
-    shadowRadius: 8,
-    elevation: 4,
-  },
-  rewardsCardHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 8,
-  },
-  loyaltyLabel: {
-    color: '#CFBB99',
-    fontWeight: 'bold',
-    fontSize: 16,
-  },
-  goldBadge: {
-    backgroundColor: '#FFD700',
-    borderRadius: 8,
-    paddingHorizontal: 8,
-    paddingVertical: 2,
-  },
-  goldBadgeText: {
-    color: '#4C3D19',
-    fontWeight: 'bold',
-    fontSize: 13,
-  },
-  rewardsPointsBig: {
-    color: '#A2C523',
-    fontSize: 38,
-    fontWeight: 'bold',
-    marginBottom: 2,
-    marginTop: 2,
-    textAlign: 'left',
-  },
-  pointsLabel: {
-    color: '#CFBB99',
-    fontSize: 15,
-    marginBottom: 2,
-  },
-  pointsRate: {
-    color: '#E5D7C4',
-    fontSize: 13,
-    marginBottom: 8,
-  },
-  trophyRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: 8,
-  },
-  expiryText: {
-    color: '#CFBB99',
-    fontSize: 13,
-  },
-  trophyIcon: {
-    fontSize: 32,
-    marginLeft: 8,
-  },
-  sectionTitle: {
+  placeholderText: {
     fontSize: 18,
-    fontWeight: 'bold',
-    color: '#4C3D19',
-    marginBottom: 10,
-    marginTop: 10,
-  },
-  rewardsGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-  },
-  rewardItem: {
-    width: '48%',
-    backgroundColor: '#fff',
-    borderRadius: 14,
-    marginBottom: 16,
-    alignItems: 'center',
-    padding: 10,
-    shadowColor: '#000',
-    shadowOpacity: 0.06,
-    shadowRadius: 4,
-    elevation: 2,
-  },
-  rewardImageWrap: {
-    width: 90,
-    height: 90,
-    borderRadius: 12,
-    backgroundColor: '#E5D7C4',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 8,
-  },
-  rewardImage: {
-    width: 70,
-    height: 70,
-    resizeMode: 'contain',
-  },
-  rewardName: {
-    fontSize: 14,
-    color: '#354024',
-    fontWeight: 'bold',
-    marginBottom: 6,
-    textAlign: 'center',
-  },
-  useBtn: {
-    backgroundColor: '#A2C523',
-    borderRadius: 8,
-    paddingVertical: 6,
-    paddingHorizontal: 18,
-    marginTop: 2,
-  },
-  useBtnText: {
-    color: '#fff',
-    fontWeight: 'bold',
-    fontSize: 14,
-  },
-  coin: {
-    fontSize: 15,
+    color: "#666",
   },
 });
