@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   Animated,
 } from "react-native";
+import MapScreen from '../components/MapScreen';
 
 export default function EcoMapScreen({ navigation }) {
   const [menuVisible, setMenuVisible] = useState(false);
@@ -86,6 +87,7 @@ export default function EcoMapScreen({ navigation }) {
       )}
 
       <View style={styles.content}>
+        <MapScreen />
       </View>
     </SafeAreaView>
   );
