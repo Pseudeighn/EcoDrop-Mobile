@@ -62,8 +62,8 @@ export const getStyles = (theme, isDarkMode) => StyleSheet.create({
   permText: { color: theme.textMuted, fontSize: 14, fontWeight: "600", textAlign: "center" },
   instruction: {
     color: theme.text, fontSize: 13.5, fontWeight: "500",
-    textAlign: "center", lineHeight: 20, opacity: 0.75,
-    letterSpacing: 0.2, transform: [{ translateY: 80 }]
+    textAlign: "center", lineHeight: 20, opacity: 0.50,
+    letterSpacing: 0.2, transform: [{ translateY: 20 }]
   },
   rescanBtn: {
     marginTop: 18, paddingVertical: 10, paddingHorizontal: 36,
