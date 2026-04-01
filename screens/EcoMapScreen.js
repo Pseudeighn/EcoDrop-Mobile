@@ -56,6 +56,7 @@ export default function EcoMapScreen({ navigation }) {
         >
           <Text style={styles.backIcon}>←</Text>
         </Pressable>
+      </View>
 
       <View style={styles.header}>
         <Text style={styles.headerLabel}>ECOMAP</Text>

@@ -276,7 +276,7 @@ export default function ProfileScreen({ navigation, route }) {
         <Text style={styles.helpEmail}>support@ecodrop.app</Text>
       </InfoModal>
 
-    </SafeAreaView>
+    </ScrollView>
   );
 }
 
