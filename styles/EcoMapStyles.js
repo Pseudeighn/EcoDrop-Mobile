@@ -1,4 +1,6 @@
 import { StyleSheet } from "react-native";
+import { COLORS } from "../constants/theme";
+
 
 export const getStyles = (theme) => StyleSheet.create({
   container: {
@@ -76,6 +78,8 @@ export const getStyles = (theme) => StyleSheet.create({
     borderTopRightRadius: 35,
     padding: 24,
     marginTop: -40,
+    width: "100%",
+    overflow: "hidden",
   },
   locationTitle: {
     color: COLORS.bone,

@@ -7,6 +7,7 @@ import {
 } from "react-native";
 import MapScreen from "../components/MapScreen";
 import { SafeAreaView } from "react-native-safe-area-context";
+import BottomNavBar from "../components/BottomNavBar";
 
 // 1. Import Context and dynamic styles function
 import { ThemeContext } from "../context/ThemeContext";

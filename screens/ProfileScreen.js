@@ -7,7 +7,7 @@ import {
 import { ThemeContext } from "../context/ThemeContext";
 import { getStyles } from "../styles/ProfileStyles";
 
-function InfoModal({ visible, onClose, title, children }) {
+function InfoModal({ visible, onClose, title, children, styles }) {
   return (
     <Modal visible={visible} animationType="slide" transparent>
       <View style={styles.modalOverlay}>
@@ -24,7 +24,7 @@ function InfoModal({ visible, onClose, title, children }) {
   );
 }
 
-function ToggleRow({ label, sublabel, value, onToggle }) {
+function ToggleRow({ label, sublabel, value, onToggle, styles }) {
   return (
     <View style={styles.toggleRow}>
       <View style={{ flex: 1 }}>
@@ -82,7 +82,7 @@ export default function ProfileScreen({ navigation, route }) {
           <TouchableOpacity style={styles.iconButton} onPress={() => navigation.goBack()}>
             <Text style={styles.headerIcon}>←</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.actionButton} onPress={() => setModalVisible(true)}>
+          <TouchableOpacity style={styles.actionButton} onPress={() => setEditModal(true)}>
             <Text style={styles.actionText}>Edit</Text>
           </TouchableOpacity>
         </View>
@@ -90,13 +90,6 @@ export default function ProfileScreen({ navigation, route }) {
         <View style={styles.avatarBorder}>
           <Image source={{ uri: "https://i.pravatar.cc/150?img=12" }} style={styles.avatar} />
         </View>
-
-        <Section title="Settings">
-          <SettingItem label="Edit Profile" onPress={() => setEditModal(true)}    />
-          <SettingItem label="Notifications" onPress={() => setNotifModal(true)}   />
-          <SettingItem label="Privacy & Security" onPress={() => setPrivacyModal(true)} />
-          <SettingItem label="Help Center" onPress={() => setHelpModal(true)}    />
-        </Section>
 
         <View style={styles.badgeRow}>
           <View style={styles.badge}><Text style={styles.badgeText}>🌱 Eco Hero</Text></View>
@@ -134,7 +127,7 @@ export default function ProfileScreen({ navigation, route }) {
       </Section>
 
       <Section title="Settings" styles={styles}>
-        <SettingItem label="Edit Profile" onPress={() => setModalVisible(true)} styles={styles} />
+        <SettingItem label="Edit Profile" onPress={() => setEditModal(true)} styles={styles} />
         
         {/* Appearance Toggle! */}
         <SettingItem 
@@ -160,7 +153,7 @@ export default function ProfileScreen({ navigation, route }) {
       </TouchableOpacity>
 
       {/* Edit Profile Modal */}
-      <Modal visible={modalVisible} animationType="fade" transparent>
+      <Modal visible={editModal} animationType="fade" transparent>
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
             <View style={styles.modalHandle} />
@@ -186,46 +179,50 @@ export default function ProfileScreen({ navigation, route }) {
               placeholderTextColor={theme.textMuted}
             />
 
-            <TouchableOpacity style={styles.saveButton} onPress={() => setModalVisible(false)}>
+            <TouchableOpacity style={styles.saveButton} onPress={() => setEditModal(false)}>
               <Text style={styles.saveButtonText}>Save changes</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.cancelButton} onPress={() => setModalVisible(false)}>
+            <TouchableOpacity style={styles.cancelButton} onPress={() => setEditModal(false)}>
               <Text style={styles.cancelText}>Cancel</Text>
             </TouchableOpacity>
           </View>
         </View>
       </Modal>
 
-      <InfoModal visible={notifModal} onClose={() => setNotifModal(false)} title="Notifications">
+      <InfoModal visible={notifModal} onClose={() => setNotifModal(false)} title="Notifications" styles={styles}>
         <Text style={styles.modalSub}>Choose what updates you'd like to receive.</Text>
         <ToggleRow
           label="Push Notifications"
           sublabel="Receive alerts on your device."
           value={pushNotif}
           onToggle={() => setPushNotif(v => !v)}
+          styles={styles}
         />
         <ToggleRow
           label="Drop Alerts"
           sublabel="Notify when a nearby bin is available."
           value={dropAlerts}
           onToggle={() => setDropAlerts(v => !v)}
+          styles={styles}
         />
         <ToggleRow
           label="Weekly Report"
           sublabel="Summary of your eco impact."
           value={weeklyReport}
           onToggle={() => setWeeklyReport(v => !v)}
+          styles={styles}
         />
         <ToggleRow
           label="Promotions"
           sublabel="Deals and reward announcements."
           value={promoNotif}
           onToggle={() => setPromoNotif(v => !v)}
+          styles={styles}
         />
       </InfoModal>
 
-      <InfoModal visible={privacyModal} onClose={() => setPrivacyModal(false)} title="Privacy & Security">
+      <InfoModal visible={privacyModal} onClose={() => setPrivacyModal(false)} title="Privacy & Security" styles={styles}>
         <Text style={styles.modalSub}>Your data is protected and never sold.</Text>
 
         <View style={styles.privacyItem}>
@@ -255,7 +252,7 @@ export default function ProfileScreen({ navigation, route }) {
         </TouchableOpacity>
       </InfoModal>
 
-      <InfoModal visible={helpModal} onClose={() => setHelpModal(false)} title="Help Center">
+      <InfoModal visible={helpModal} onClose={() => setHelpModal(false)} title="Help Center" styles={styles}>
         <Text style={styles.modalSub}>Find answers and get in touch with us.</Text>
 
         <View style={styles.helpItem}>
@@ -281,10 +278,10 @@ export default function ProfileScreen({ navigation, route }) {
 }
 
 // 3. Update helper components to accept the 'styles' prop
-function StatCard({ label, value, styles }) {
+function StatCard({ label, value, emoji, styles }) { // Added emoji
   return (
     <View style={styles.statCard}>
-      <Text style={styles.statEmoji}>{emoji}</Text>
+      {emoji && <Text style={styles.statEmoji}>{emoji}</Text>}
       <Text style={styles.statValue}>{value}</Text>
       <Text style={styles.statLabel}>{label}</Text>
     </View>
@@ -300,7 +297,7 @@ function Section({ title, children, styles }) {
   );
 }
 
-function Achievement({ icon, title, subtitle, styles }) {
+function Achievement({ icon, title, subtitle, color = "#A2C523", styles }) { 
   return (
     <View style={styles.achievement}>
       <View style={[styles.achievementIconBox, { backgroundColor: color + "22" }]}>
@@ -315,10 +312,10 @@ function Achievement({ icon, title, subtitle, styles }) {
   );
 }
 
-function ActionItem({ title, subtitle, styles }) {
+function ActionItem({ title, subtitle, emoji, onPress, styles }) { 
   return (
     <TouchableOpacity style={styles.actionItem} onPress={onPress} activeOpacity={0.75}>
-      <Text style={styles.actionEmoji}>{emoji}</Text>
+      {emoji && <Text style={styles.actionEmoji}>{emoji}</Text>}
       <View style={{ flex: 1 }}>
         <Text style={styles.actionTitle}>{title}</Text>
         <Text style={styles.actionSubtitle}>{subtitle}</Text>
