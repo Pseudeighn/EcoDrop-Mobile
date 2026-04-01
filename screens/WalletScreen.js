@@ -11,13 +11,6 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import BottomNavBar from "../components/BottomNavBar";
 import { COLORS } from "../constants/theme";
 
-const COLORS = {
-  darkBg: "#1E1E1E",
-  bone: "#F5F5F5",
-  kombuGreen: "#354F2F",
-  mossGreen: "#889063",
-};
-
 export default function WalletScreen({ navigation }) {
   
   const rewards = [
