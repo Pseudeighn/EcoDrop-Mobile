@@ -1,8 +1,9 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import {
   View,
   Text,
   Pressable,
+  TouchableOpacity,
   ScrollView,
   Image,
   Animated,
@@ -11,6 +12,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import BottomNavBar from "../components/BottomNavBar";
+import NotificationCard from "../components/NotificationCard"; // ADDED THIS
 import { COLORS } from "../constants/theme";
 import { styles, statStyles, tileStyles, actStyles } from "../styles/DashboardStyles";
 
@@ -67,6 +69,9 @@ function ActivityRow({ emoji, title, date, points, negative }) {
 export default function DashboardScreen({ route, navigation }) {
   const userName = route?.params?.user?.name || "Eco-Warrior";
 
+  // --- ADDED STATE FOR NOTIFICATION ---
+  const [isNotifOpen, setIsNotifOpen] = useState(false);
+
   const fadeHeader = useRef(new Animated.Value(0)).current;
   const slideHero = useRef(new Animated.Value(30)).current;
   const fadeHero = useRef(new Animated.Value(0)).current;
@@ -89,12 +94,20 @@ export default function DashboardScreen({ route, navigation }) {
     <SafeAreaView style={styles.safe}>
       <StatusBar barStyle="light-content" backgroundColor={COLORS.darkBg} />
 
+      {/* INVISIBLE OVERLAY: Closes popup if you tap anywhere outside it */}
+      {isNotifOpen && (
+        <Pressable 
+          style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 900, elevation: 900 }} 
+          onPress={() => setIsNotifOpen(false)} 
+        />
+      )}
+
       <ScrollView
         style={styles.scroll}
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-        <Animated.View style={[styles.header, { opacity: fadeHeader }]}>
+        <Animated.View style={[styles.header, { opacity: fadeHeader, zIndex: 999, elevation: 999 }]}>
           <View style={styles.headerLeft}>
             <Image
               source={require("../assets/EcoDropLogo.png")}
@@ -106,13 +119,26 @@ export default function DashboardScreen({ route, navigation }) {
               <Text style={styles.subGreeting}>Ready to make an impact?</Text>
             </View>
           </View>
-          <View style={styles.bellBox}>
-            <Text style={styles.bellIcon}>🔔</Text>
-            <View style={styles.bellDot} />
+
+          {/* --- REVISED BELL SECTION --- */}
+          <View style={{ position: "relative", zIndex: 999, elevation: 999 }}>
+            <TouchableOpacity 
+              style={styles.bellBox} 
+              activeOpacity={0.7}
+              onPress={() => setIsNotifOpen(!isNotifOpen)}
+            >
+              <Text style={styles.bellIcon}>🔔</Text>
+              <View style={styles.bellDot} />
+            </TouchableOpacity>
+
+            {/* Render the notification card right below the bell */}
+            <NotificationCard isOpen={isNotifOpen} />
           </View>
+          {/* --------------------------- */}
+          
         </Animated.View>
 
-        <Animated.View style={{ opacity: fadeHero, transform: [{ translateY: slideHero }] }}>
+        <Animated.View style={{ opacity: fadeHero, transform: [{ translateY: slideHero }], zIndex: 1, elevation: 1 }}>
           <Pressable style={styles.heroBanner} onPress={() => navigation.navigate("Wallet")}>
             <Text style={styles.heroWatermark}>1,250</Text>
 

@@ -94,7 +94,7 @@ export const styles = StyleSheet.create({
     lineHeight: 20,
     opacity: 0.50,
     letterSpacing: 0.2,
-    transform: [{ translateY: 80 }],
+    transform: [{ translateY: 20 }],
   },
   rescanBtn: {
     marginTop: 18,
