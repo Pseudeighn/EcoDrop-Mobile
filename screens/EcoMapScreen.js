@@ -6,11 +6,9 @@ import {
   Pressable,
   Animated,
 } from "react-native";
-<<<<<<< HEAD
 import MapScreen from '../components/MapScreen';
-=======
 import { SafeAreaView } from "react-native-safe-area-context";
->>>>>>> 2971b0cd6b9baf0ba3a78b8e9d565ef49284d9fe
+import { COLORS } from "../constants/theme";
 
 export default function EcoMapScreen({ navigation }) {
   const [menuVisible, setMenuVisible] = useState(false);
