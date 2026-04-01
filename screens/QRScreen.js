@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   View,
   Text,
@@ -11,11 +11,15 @@ import {
 import { CameraView, useCameraPermissions } from "expo-camera";
 import BottomNavBar from "../components/BottomNavBar";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { styles } from "../styles/QRStyles";
 
-const { width, height } = Dimensions.get("window");
+// 1. Import Theme Context and Styles
+import { ThemeContext } from "../context/ThemeContext";
+import { getStyles } from "../styles/QRStyles";
 
-function HamburgerIcon({ color = COLORS.white, size = 20 }) {
+const { width } = Dimensions.get("window");
+
+// 2. Updated Helper components to accept dynamic colors
+function HamburgerIcon({ color, size = 20 }) {
   const bar = { width: size, height: 2.5, backgroundColor: color, borderRadius: 2 };
   return (
     <View style={{ gap: 5 }}>
@@ -26,74 +30,47 @@ function HamburgerIcon({ color = COLORS.white, size = 20 }) {
   );
 }
 
-function CameraIcon({ size = 32, color = COLORS.white }) {
+function CameraIcon({ size = 32, color }) {
   return (
     <View style={{ width: size, height: size, alignItems: "center", justifyContent: "center" }}>
       <View
         style={{
-          width: size,
-          height: size * 0.72,
-          borderRadius: size * 0.15,
-          borderWidth: 2.5,
-          borderColor: color,
-          alignItems: "center",
-          justifyContent: "center",
-          position: "absolute",
-          bottom: 0,
+          width: size, height: size * 0.72, borderRadius: size * 0.15,
+          borderWidth: 2.5, borderColor: color, alignItems: "center",
+          justifyContent: "center", position: "absolute", bottom: 0,
         }}
       >
         <View
           style={{
-            width: size * 0.42,
-            height: size * 0.42,
-            borderRadius: size * 0.21,
-            borderWidth: 2.5,
-            borderColor: color,
-            alignItems: "center",
-            justifyContent: "center",
+            width: size * 0.42, height: size * 0.42, borderRadius: size * 0.21,
+            borderWidth: 2.5, borderColor: color, alignItems: "center", justifyContent: "center",
           }}
         >
-          <View
-            style={{
-              width: size * 0.18,
-              height: size * 0.18,
-              borderRadius: size * 0.09,
-              backgroundColor: color,
-            }}
-          />
+          <View style={{ width: size * 0.18, height: size * 0.18, borderRadius: size * 0.09, backgroundColor: color }} />
         </View>
       </View>
       <View
         style={{
-          position: "absolute",
-          top: 0,
-          left: size * 0.12,
-          width: size * 0.28,
-          height: size * 0.22,
-          borderTopLeftRadius: size * 0.1,
-          borderTopRightRadius: size * 0.1,
-          borderWidth: 2.5,
-          borderBottomWidth: 0,
-          borderColor: color,
+          position: "absolute", top: 0, left: size * 0.12, width: size * 0.28, height: size * 0.22,
+          borderTopLeftRadius: size * 0.1, borderTopRightRadius: size * 0.1,
+          borderWidth: 2.5, borderBottomWidth: 0, borderColor: color,
         }}
       />
     </View>
   );
 }
 
-function QRCorners({ size = 220, cornerLen = 28, thickness = 3.5, color = COLORS.mossGreen }) {
+function QRCorners({ size = 220, cornerLen = 28, thickness = 3.5, color }) {
   const corner = (pos) => {
-    const isTop    = pos.includes("top");
-    const isLeft   = pos.includes("Left");
+    const isTop  = pos.includes("top");
+    const isLeft = pos.includes("Left");
     return (
       <View
         key={pos}
         style={{
-          position: "absolute",
-          width: cornerLen,
-          height: cornerLen,
+          position: "absolute", width: cornerLen, height: cornerLen,
           ...(isTop  ? { top: 0    } : { bottom: 0    }),
-          ...(isLeft ? { left: 0   } : { right: 0    }),
+          ...(isLeft ? { left: 0   } : { right: 0     }),
           borderTopWidth:    isTop  ? thickness : 0,
           borderBottomWidth: isTop  ? 0 : thickness,
           borderLeftWidth:   isLeft ? thickness : 0,
@@ -116,6 +93,10 @@ function QRCorners({ size = 220, cornerLen = 28, thickness = 3.5, color = COLORS
 }
 
 export default function QRScreen({ navigation }) {
+  // 3. Consume Context
+  const { theme, isDarkMode } = useContext(ThemeContext);
+  const styles = getStyles(theme, isDarkMode);
+
   const [permission, requestPermission] = useCameraPermissions();
   const [scanned, setScanned]           = useState(false);
   const [scanLine, setScanLine]         = useState(0);
@@ -148,7 +129,7 @@ export default function QRScreen({ navigation }) {
       style={styles.bg}
       resizeMode="cover"
     >
-      <StatusBar barStyle="light-content" translucent backgroundColor="transparent" />
+      <StatusBar barStyle={isDarkMode ? "light-content" : "dark-content"} translucent backgroundColor="transparent" />
 
       <View style={styles.tint} pointerEvents="none" />
 
@@ -165,14 +146,16 @@ export default function QRScreen({ navigation }) {
           <Text style={styles.scanLabel}>SCAN</Text>
 
           <Pressable style={({ pressed }) => [styles.iconBtn, pressed && { opacity: 0.7 }]}>
-            <HamburgerIcon />
+            {/* Pass theme color to icons */}
+            <HamburgerIcon color={theme.text} />
           </Pressable>
         </View>
 
         <View style={[styles.card, { width: CARD_W, flex: 0.8 }]}>
 
           <View style={styles.cameraCircle}>
-            <CameraIcon size={34} color={COLORS.white} />
+            {/* Pass theme color to icons */}
+            <CameraIcon size={34} color={theme.text} />
           </View>
 
           <View style={[styles.cameraBox, { width: CAM_SIZE, aspectRatio: 1, alignSelf: "center" }]}>
@@ -203,7 +186,8 @@ export default function QRScreen({ navigation }) {
             )}
 
             <View style={StyleSheet.absoluteFill} pointerEvents="none" alignItems="center" justifyContent="center">
-              <QRCorners size={CAM_SIZE - 24} color={COLORS.mossGreen} />
+              {/* Pass theme color to corners */}
+              <QRCorners size={CAM_SIZE - 24} color={theme.primary} />
             </View>
           </View>
 

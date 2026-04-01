@@ -1,24 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, Pressable, Text, StyleSheet, Platform } from "react-native";
+import { ThemeContext } from "../context/ThemeContext";
 
-const COLORS = {
-  cafeNoir:   "#4C3D19",
-  kombuGreen: "#354024",
-  mossGreen:  "#889063",
-  tan:        "#CFBB99",
-  bone:       "#E5D7C4",
-  white:      "#FFFFFF",
-};
-
-const TABS = [
-  { name: "Dashboard", label: "Home",    icon: HomeIcon    },
-  { name: "EcoMap",    label: "Map",     icon: MapIcon     },
-  { name: "QRScreen",  label: "Scan",    icon: ScanIcon    },
-  { name: "Wallet",    label: "Wallet",  icon: GiftIcon    },
-  { name: "Profile",   label: "Profile", icon: ProfileIcon },
-];
-
-function HomeIcon({ color, size }) {
+function HomeIcon({ color, size, bgColor }) {
   const roofW = size * 0.82;
   const roofH = size * 0.44;
   const bodyW = size * 0.54;
@@ -56,7 +40,7 @@ function HomeIcon({ color, size }) {
           style={{
             width: doorW,
             height: doorH,
-            backgroundColor: COLORS.kombuGreen,
+            backgroundColor: bgColor, // Cutout uses the dynamic background color
             borderTopLeftRadius:  doorW * 0.3,
             borderTopRightRadius: doorW * 0.3,
           }}
@@ -189,7 +173,18 @@ function ProfileIcon({ color, size }) {
   );
 }
 
+const TABS = [
+  { name: "Dashboard", label: "Home",    icon: HomeIcon    },
+  { name: "EcoMap",    label: "Map",     icon: MapIcon     },
+  { name: "QRScreen",  label: "Scan",    icon: ScanIcon    },
+  { name: "Wallet",    label: "Wallet",  icon: GiftIcon    },
+  { name: "Profile",   label: "Profile", icon: ProfileIcon },
+];
+
 export default function BottomNavBar({ navigation, activeScreen }) {
+  const { theme } = useContext(ThemeContext);
+  const styles = getStyles(theme);
+
   return (
     <View style={styles.wrapper}>
       <View style={styles.topBorder} />
@@ -197,7 +192,12 @@ export default function BottomNavBar({ navigation, activeScreen }) {
         {TABS.map((tab) => {
           const isActive = activeScreen === tab.name;
           const IconComponent = tab.icon;
-          const iconColor = isActive ? COLORS.bone : COLORS.mossGreen;
+          
+          // Use dynamic theme text/primary colors for the icons based on state
+          const iconColor = isActive ? theme.background : theme.textMuted;
+          
+          // We pass the background color into the HomeIcon to "cut out" the door shape
+          const doorBgColor = isActive ? theme.text : theme.cardSecondary;
 
           return (
             <Pressable
@@ -208,7 +208,7 @@ export default function BottomNavBar({ navigation, activeScreen }) {
               {isActive && <View style={styles.activePill} />}
 
               <View style={styles.tabInner}>
-                <IconComponent color={iconColor} size={26} />
+                <IconComponent color={iconColor} size={26} bgColor={doorBgColor} />
                 <Text style={[styles.label, isActive && styles.labelActive]}>
                   {tab.label}
                 </Text>
@@ -221,19 +221,19 @@ export default function BottomNavBar({ navigation, activeScreen }) {
   );
 }
 
-const styles = StyleSheet.create({
+const getStyles = (theme) => StyleSheet.create({
   wrapper: {
     position: "absolute",
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: COLORS.kombuGreen,
+    backgroundColor: theme.cardSecondary, 
     paddingBottom: Platform.OS === "ios" ? 24 : 4,
   },
   topBorder: {
     width: "100%",
     height: 1,
-    backgroundColor: "rgba(136, 144, 99, 0.45)",
+    backgroundColor: theme.border,
   },
   bar: {
     flexDirection: "row",
@@ -255,7 +255,7 @@ const styles = StyleSheet.create({
     left: 6,
     right: 6,
     borderRadius: 10,
-    backgroundColor: COLORS.mossGreen,
+    backgroundColor: theme.text, 
   },
   tabInner: {
     alignItems: "center",
@@ -265,12 +265,12 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 10,
     fontWeight: "600",
-    color: COLORS.mossGreen,
+    color: theme.textMuted,
     letterSpacing: 0.3,
     textAlign: "center",
   },
   labelActive: {
-    color: COLORS.bone,
+    color: theme.background, 
     fontWeight: "700",
   },
 });

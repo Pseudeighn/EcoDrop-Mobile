@@ -1,10 +1,9 @@
 import { StyleSheet } from "react-native";
-import { COLORS } from "../constants/theme";
 
-export const styles = StyleSheet.create({
+export const getStyles = (theme) => StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.landingBg, // Replaced hardcoded color
+    backgroundColor: theme.background, // Adapts to Light/Dark mode
     alignItems: "center",
     justifyContent: "center",
   },
@@ -17,7 +16,7 @@ export const styles = StyleSheet.create({
     width: 12,
     height: 12,
     borderRadius: 6,
-    backgroundColor: COLORS.landingDot, // Replaced hardcoded color
+    backgroundColor: theme.primary, // Uses your mossGreen dynamically
     marginHorizontal: 6,
   },
   logoContainer: {

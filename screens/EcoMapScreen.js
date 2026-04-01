@@ -1,16 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   View,
   Text,
-  StyleSheet,
   Pressable,
   Animated,
 } from "react-native";
 import MapScreen from "../components/MapScreen";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { styles } from "../styles/EcoMapStyles";
+
+// 1. Import Context and dynamic styles function
+import { ThemeContext } from "../context/ThemeContext";
+import { getStyles } from "../styles/EcoMapStyles";
 
 export default function EcoMapScreen({ navigation }) {
+  // 2. Consume Theme Context
+  const { theme } = useContext(ThemeContext);
+  
+  // 3. Generate dynamic styles
+  const styles = getStyles(theme);
+
   const [menuVisible, setMenuVisible] = useState(false);
   const slideAnim = useState(new Animated.Value(-200))[0];
 
@@ -40,6 +48,7 @@ export default function EcoMapScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
+      {/* Top Bar Floating Over Map */}
       <View style={styles.topBar}>
         <Pressable
           style={styles.navButton}
@@ -53,6 +62,7 @@ export default function EcoMapScreen({ navigation }) {
         </Pressable>
       </View>
 
+      {/* Animated Dropdown Menu */}
       {menuVisible && (
         <Animated.View
           style={[
@@ -81,12 +91,13 @@ export default function EcoMapScreen({ navigation }) {
             <Text style={styles.menuText}>Profile</Text>
           </Pressable>
 
-          <Pressable style={styles.menuItem}>
+          <Pressable style={[styles.menuItem, { borderBottomWidth: 0 }]}>
             <Text style={styles.menuText}>Settings</Text>
           </Pressable>
         </Animated.View>
       )}
 
+      {/* Map Content */}
       <View style={styles.content}>
         <MapScreen />
       </View>

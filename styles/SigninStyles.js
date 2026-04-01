@@ -1,41 +1,61 @@
 import { StyleSheet } from "react-native";
-import { COLORS } from "../constants/theme";
 
-export const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: COLORS.mossGreen },
+export const getStyles = (theme, isDarkMode) => StyleSheet.create({
+  // Use theme background for the safe area to match the transition
+  safe: { flex: 1, backgroundColor: theme.background },
   container: { flex: 1 },
+  
   backgroundImg: {
     position: "absolute",
     width: "100%",
     height: "100%",
     top: 0,
     left: 0,
+    // Slightly dim the background image in Dark Mode for better contrast
+    opacity: isDarkMode ? 0.7 : 1, 
   },
+  
   spacer: { height: 280 },
+  
   card: {
     flex: 1,
-    backgroundColor: "rgba(0,0,0,0.06)",
-    borderTopLeftRadius: 22,
-    borderTopRightRadius: 22,
-    padding: 20,
+    backgroundColor: theme.cardPrimary, // Use dynamic card color instead of translucent black
+    borderTopLeftRadius: 32,
+    borderTopRightRadius: 32,
+    padding: 24,
+    borderWidth: 1,
+    borderColor: theme.border,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: -4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 12,
+    elevation: 10,
   },
+  
   input: {
-    backgroundColor: COLORS.white,
-    borderRadius: 10,
-    paddingHorizontal: 14,
-    paddingVertical: 12,
-    marginBottom: 12,
-    color: COLORS.darkBg,
+    backgroundColor: theme.background,
+    borderRadius: 12,
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+    marginBottom: 14,
+    color: theme.text,
+    borderWidth: 1,
+    borderColor: theme.border,
   },
-  passwordContainer: { position: "relative", marginBottom: 12 },
+  
+  passwordContainer: { position: "relative", marginBottom: 14 },
+  
   passwordInput: {
-    backgroundColor: COLORS.white,
-    borderRadius: 10,
-    paddingHorizontal: 14,
-    paddingVertical: 12,
+    backgroundColor: theme.background,
+    borderRadius: 12,
+    paddingHorizontal: 16,
+    paddingVertical: 14,
     paddingRight: 50,
-    color: COLORS.darkBg,
+    color: theme.text,
+    borderWidth: 1,
+    borderColor: theme.border,
   },
+  
   eyeIcon: {
     position: "absolute",
     right: 14,
@@ -45,36 +65,45 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   eyeEmoji: { fontSize: 20 },
+  
   rowBetween: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginBottom: 14,
+    marginBottom: 20,
   },
+  
   checkboxRow: { flexDirection: "row", alignItems: "center" },
   checkbox: {
     width: 18,
     height: 18,
     borderWidth: 2,
-    borderColor: COLORS.cafeNoir, // Using theme brown!
-    borderRadius: 3,
+    borderColor: theme.primary,
+    borderRadius: 4,
     marginRight: 8,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: COLORS.white,
+    backgroundColor: theme.background,
   },
-  checkboxChecked: { width: 10, height: 10, backgroundColor: COLORS.cafeNoir, borderRadius: 1 },
-  rememberText: { fontSize: 15, fontWeight: 'bold', color: COLORS.cafeNoir, opacity: 0.8 },
-  small: { fontSize: 15, color: COLORS.darkBg, opacity: 0.8 }, 
-  link: { color: COLORS.cafeNoir, fontWeight: "700" },
-  primaryBtn: { backgroundColor: COLORS.cafeNoir, paddingVertical: 14, borderRadius: 10, alignItems: "center", marginTop: 2 },
-  primaryBtnText: { color: COLORS.white, fontWeight: "800", letterSpacing: 1 },
-  orText: { textAlign: "center", marginVertical: 12, fontSize: 12, opacity: 0.6, color: COLORS.darkBg },
+  checkboxChecked: { width: 10, height: 10, backgroundColor: theme.primary, borderRadius: 2 },
+  
+  rememberText: { fontSize: 14, fontWeight: '600', color: theme.textMuted },
+  small: { fontSize: 14, color: theme.textMuted }, 
+  link: { color: theme.primary, fontWeight: "700" },
+  
+  primaryBtn: { backgroundColor: theme.primary, paddingVertical: 16, borderRadius: 12, alignItems: "center", marginTop: 4 },
+  primaryBtnText: { color: "#FFFFFF", fontWeight: "800", letterSpacing: 1, fontSize: 16 },
+  
+  orText: { textAlign: "center", marginVertical: 20, fontSize: 12, fontWeight: "600", color: theme.textMuted, letterSpacing: 1 },
+  
   socialRow: { flexDirection: "row", gap: 12 },
-  socialBtn: { flex: 1, paddingVertical: 12, borderRadius: 10, alignItems: "center", justifyContent: "center", backgroundColor: COLORS.white, flexDirection: "row", gap: 8 },
-  google: { opacity: 0.95 },
-  facebook: { opacity: 0.95 },
+  socialBtn: { 
+    flex: 1, paddingVertical: 14, borderRadius: 12, alignItems: "center", justifyContent: "center", 
+    backgroundColor: theme.cardSecondary, flexDirection: "row", gap: 8,
+    borderWidth: 1, borderColor: theme.border
+  },
   socialLogo: { width: 20, height: 20 },
-  socialText: { fontWeight: "700", opacity: 0.75, color: COLORS.darkBg },
-  bottomRow: { marginTop: 14, flexDirection: "row", justifyContent: "center", alignItems: "center" },
+  socialText: { fontWeight: "700", color: theme.text },
+  
+  bottomRow: { marginTop: 24, flexDirection: "row", justifyContent: "center", alignItems: "center" },
 });

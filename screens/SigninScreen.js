@@ -1,16 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   View,
   Text,
-  StyleSheet,   
   TextInput,
   Pressable,
   Image,
+  StatusBar
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { styles } from "../styles/SigninStyles";
+
+// 1. Import Context and dynamic styles function
+import { ThemeContext } from "../context/ThemeContext";
+import { getStyles } from "../styles/SigninStyles";
 
 export default function SigninScreen({ navigation }) {
+  // 2. Consume Theme Context
+  const { theme, isDarkMode } = useContext(ThemeContext);
+  const styles = getStyles(theme, isDarkMode);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -33,18 +40,21 @@ export default function SigninScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.safe}>
+      <StatusBar barStyle={isDarkMode ? "light-content" : "dark-content"} translucent backgroundColor="transparent" />
+      
       <Image
         source={require("../assets/SigninBG.png")}
         style={styles.backgroundImg}
         resizeMode="cover"
       />
+      
       <View style={styles.container}>
         <View style={styles.spacer} />
 
         <View style={styles.card}>
           <TextInput
             placeholder="Email"
-            placeholderTextColor="#6B7280"
+            placeholderTextColor={theme.textMuted} // Dynamic placeholder color
             style={styles.input}
             value={email}
             onChangeText={setEmail}
@@ -55,7 +65,7 @@ export default function SigninScreen({ navigation }) {
           <View style={styles.passwordContainer}>
             <TextInput
               placeholder="Password"
-              placeholderTextColor="#6B7280"
+              placeholderTextColor={theme.textMuted} // Dynamic placeholder color
               style={styles.passwordInput}
               value={password}
               onChangeText={setPassword}
@@ -94,7 +104,7 @@ export default function SigninScreen({ navigation }) {
 
           <View style={styles.socialRow}>
             <Pressable
-              style={[styles.socialBtn, styles.google]}
+              style={styles.socialBtn}
               onPress={() => alert("Google")}
             >
               <Image
@@ -106,7 +116,7 @@ export default function SigninScreen({ navigation }) {
             </Pressable>
 
             <Pressable
-              style={[styles.socialBtn, styles.facebook]}
+              style={styles.socialBtn}
               onPress={() => alert("Facebook")}
             >
               <Image

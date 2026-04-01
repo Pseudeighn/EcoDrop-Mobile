@@ -1,16 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   View,
   Text,
-  StyleSheet,
   TextInput,
   Pressable,
   Image,
+  StatusBar
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { styles } from "../styles/SignupStyles";
+
+// 1. Import Context and dynamic styles function
+import { ThemeContext } from "../context/ThemeContext";
+import { getStyles } from "../styles/SignupStyles";
 
 export default function SignupScreen({ navigation }) {
+  // 2. Consume Theme Context
+  const { theme, isDarkMode } = useContext(ThemeContext);
+  const styles = getStyles(theme, isDarkMode);
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -22,11 +29,14 @@ export default function SignupScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.safe}>
+      <StatusBar barStyle={isDarkMode ? "light-content" : "dark-content"} translucent backgroundColor="transparent" />
+      
       <Image
         source={require("../assets/SignupBG.png")}
         style={styles.backgroundImg}
         resizeMode="cover"
       />
+      
       <View style={styles.container}>
         <View style={styles.spacer} />
 
@@ -34,14 +44,14 @@ export default function SignupScreen({ navigation }) {
           <View style={styles.nameRow}>
             <TextInput
               placeholder="First Name"
-              placeholderTextColor="#6B7280"
+              placeholderTextColor={theme.textMuted} // Dynamic placeholder
               style={[styles.input, styles.half]}
               value={firstName}
               onChangeText={setFirstName}
             />
             <TextInput
               placeholder="Last Name"
-              placeholderTextColor="#6B7280"
+              placeholderTextColor={theme.textMuted} // Dynamic placeholder
               style={[styles.input, styles.half]}
               value={lastName}
               onChangeText={setLastName}
@@ -50,7 +60,7 @@ export default function SignupScreen({ navigation }) {
 
           <TextInput
             placeholder="Email Address"
-            placeholderTextColor="#6B7280"
+            placeholderTextColor={theme.textMuted} // Dynamic placeholder
             style={styles.input}
             value={email}
             onChangeText={setEmail}
@@ -61,7 +71,7 @@ export default function SignupScreen({ navigation }) {
           <View style={styles.passwordContainer}>
             <TextInput
               placeholder="Password"
-              placeholderTextColor="#6B7280"
+              placeholderTextColor={theme.textMuted} // Dynamic placeholder
               style={styles.passwordInput}
               value={pw}
               onChangeText={setPw}
@@ -80,7 +90,7 @@ export default function SignupScreen({ navigation }) {
           <View style={styles.passwordContainer}>
             <TextInput
               placeholder="Confirm Password"
-              placeholderTextColor="#6B7280"
+              placeholderTextColor={theme.textMuted} // Dynamic placeholder
               style={styles.passwordInput}
               value={pw2}
               onChangeText={setPw2}

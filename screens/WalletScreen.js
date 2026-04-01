@@ -1,19 +1,24 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   View,
   Text,
-  StyleSheet,
   ScrollView,
   Pressable,
-  Image 
+  Image,
+  StatusBar
 } from "react-native"; 
 import { SafeAreaView } from "react-native-safe-area-context";
 import BottomNavBar from "../components/BottomNavBar";
-import { COLORS } from "../constants/theme";
-import { styles } from "../styles/WalletStyles";
+
+// 1. Import Theme Context and Styles
+import { ThemeContext } from "../context/ThemeContext";
+import { getStyles } from "../styles/WalletStyles";
 
 export default function WalletScreen({ navigation }) {
-  
+  // 2. Consume Theme Context
+  const { theme, isDarkMode } = useContext(ThemeContext);
+  const styles = getStyles(theme);
+
   const rewards = [
     {
       id: 1,
@@ -43,6 +48,12 @@ export default function WalletScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.safe}>
+      {/* Dynamic Status Bar */}
+      <StatusBar 
+        barStyle={isDarkMode ? "light-content" : "dark-content"} 
+        backgroundColor={theme.background} 
+      />
+      
       <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
         <Text style={styles.headerTitle}>My Eco-Wallet</Text>
         

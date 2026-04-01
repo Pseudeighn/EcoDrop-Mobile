@@ -1,8 +1,15 @@
-import React, { useEffect, useRef } from "react";
-import { View, StyleSheet, Image, Animated } from "react-native";
-import { styles } from "../styles/LandingStyles";
+import React, { useEffect, useRef, useContext } from "react";
+import { View, Image, Animated } from "react-native";
+
+// 1. Import Context and styles
+import { ThemeContext } from "../context/ThemeContext";
+import { getStyles } from "../styles/LandingStyles";
 
 export default function LandingScreen({ navigation }) {
+  // 2. Consume Context and generate dynamic styles
+  const { theme } = useContext(ThemeContext);
+  const styles = getStyles(theme);
+
   const fadeTransition = useRef(new Animated.Value(0)).current;
   const dot1 = useRef(new Animated.Value(0)).current;
   const dot2 = useRef(new Animated.Value(0)).current;
@@ -73,30 +80,9 @@ export default function LandingScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <Animated.View style={[styles.dotsContainer, { opacity: fadeTransition }]}>
-        <Animated.View
-          style={[
-            styles.dot,
-            {
-              opacity: dot1,
-            },
-          ]}
-        />
-        <Animated.View
-          style={[
-            styles.dot,
-            {
-              opacity: dot2,
-            },
-          ]}
-        />
-        <Animated.View
-          style={[
-            styles.dot,
-            {
-              opacity: dot3,
-            },
-          ]}
-        />
+        <Animated.View style={[styles.dot, { opacity: dot1 }]} />
+        <Animated.View style={[styles.dot, { opacity: dot2 }]} />
+        <Animated.View style={[styles.dot, { opacity: dot3 }]} />
       </Animated.View>
 
       <Animated.View style={[styles.logoContainer, { opacity: fadeTransition }]}>
