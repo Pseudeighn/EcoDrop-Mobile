@@ -6,8 +6,7 @@ import {
   Pressable,
   Animated,
 } from "react-native";
-
-import MapScreen from '../components/MapScreen';
+import MapScreen from "../components/MapScreen";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function EcoMapScreen({ navigation }) {

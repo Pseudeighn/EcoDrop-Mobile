@@ -5,9 +5,11 @@ import {
   StyleSheet,
   ScrollView,
   Pressable,
+  Image 
 } from "react-native"; 
 import { SafeAreaView } from "react-native-safe-area-context";
 import BottomNavBar from "../components/BottomNavBar";
+import { COLORS } from "../constants/theme";
 
 const COLORS = {
   darkBg: "#1E1E1E",
@@ -17,30 +19,30 @@ const COLORS = {
 };
 
 export default function WalletScreen({ navigation }) {
-  // Sample rewards data
+  
   const rewards = [
     {
       id: 1,
       name: 'GCash Voucher',
-      image: 'https://upload.wikimedia.org/wikipedia/commons/5/5e/GCash_logo_2022.png',
+      image: require('../assets/gcashlogo.jpg'), 
       points: 5000,
     },
     {
       id: 2,
       name: 'GCash Load',
-      image: 'https://upload.wikimedia.org/wikipedia/commons/5/5e/GCash_logo_2022.png',
+      image: require('../assets/gcashlogo.jpg'),
       points: 3000,
     },
     {
       id: 3,
       name: 'AirPods Pro',
-      image: 'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MWP22_AV1?wid=2000&hei=2000&fmt=jpeg&qlt=95&.v=1591634795000',
+      image: require('../assets/airpods.jpg'),
       points: 15000,
     },
     {
       id: 4,
       name: 'Jollibee Gift Card',
-      image: 'https://upload.wikimedia.org/wikipedia/en/0/0d/Jollibee_2011_logo.svg',
+      image: require('../assets/Jollibeelogo.jpg'),
       points: 8000,
     },
   ];
@@ -49,6 +51,7 @@ export default function WalletScreen({ navigation }) {
     <SafeAreaView style={styles.safe}>
       <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
         <Text style={styles.headerTitle}>My Eco-Wallet</Text>
+        
         {/* 1. The Balance Card */}
         <View style={styles.balanceCard}>
           <Text style={styles.balanceLabel}>AVAILABLE ECO-POINTS</Text>
@@ -57,32 +60,27 @@ export default function WalletScreen({ navigation }) {
             <Text style={styles.tierText}>Bronze Tier</Text>
           </View>
         </View>
+
         {/* 2. Available Rewards Section */}
         <Text style={styles.sectionTitle}>Redeem Rewards</Text>
-        <View style={styles.rewardCard}>
-          <View style={styles.rewardInfo}>
-             <Text style={styles.rewardEmoji}>☕</Text>
-             <View>
-               <Text style={styles.rewardTitle}>Free Coffee Voucher (Any Size)</Text>
-               <Text style={styles.rewardSub}>Local Cafe Partner</Text>
-             </View>
+        
+        {rewards.map((reward) => (
+          <View key={reward.id} style={styles.rewardCard}>
+            <View style={styles.rewardInfo}>
+            
+               <Image source={reward.image} style={styles.rewardImg} resizeMode="cover" />
+               
+               <View>
+                 <Text style={styles.rewardTitle}>{reward.name}</Text>
+                 <Text style={styles.rewardSub}>Digital Reward</Text>
+               </View>
+            </View>
+            <Pressable style={styles.redeemBtn}>
+              <Text style={styles.redeemText}>{reward.points} pts</Text>
+            </Pressable>
           </View>
-          <Pressable style={styles.redeemBtn}>
-            <Text style={styles.redeemText}>300 pts</Text>
-          </Pressable>
-        </View>
-        <View style={styles.rewardCard}>
-          <View style={styles.rewardInfo}>
-             <Text style={styles.rewardEmoji}>🌱</Text>
-             <View>
-               <Text style={styles.rewardTitle}>Reusable Tote Bag Voucher</Text>
-               <Text style={styles.rewardSub}>EcoDrop Merch</Text>
-             </View>
-          </View>
-          <Pressable style={styles.redeemBtn}>
-            <Text style={styles.redeemText}>500 pts</Text>
-          </Pressable>
-        </View>
+        ))}
+
         {/* 3. Transaction History Section */}
         <Text style={[styles.sectionTitle, { marginTop: 10 }]}>Recent Transactions</Text>
         <View style={styles.historyItem}>
@@ -100,6 +98,7 @@ export default function WalletScreen({ navigation }) {
           <Text style={styles.pointsSpent}>- 300 pts</Text>
         </View>
       </ScrollView>
+
       {/* Footer Navigation */}
       <View style={styles.navWrapper}>
         <BottomNavBar navigation={navigation} activeScreen="Wallet" />
@@ -143,11 +142,14 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginBottom: 12,
   },
-  rewardInfo: { flexDirection: "row", alignItems: "center", gap: 12 },
-  rewardEmoji: { fontSize: 28 },
-  rewardTitle: { fontSize: 15, fontWeight: "700", color: COLORS.bone },
+  rewardInfo: { flexDirection: "row", alignItems: "center", gap: 12, flex: 1 }, // Added flex: 1 so long text doesn't push the button off screen
+  
+
+  rewardImg: { width: 40, height: 40, borderRadius: 8, backgroundColor: COLORS.bone },
+  
+  rewardTitle: { fontSize: 14, fontWeight: "700", color: COLORS.bone },
   rewardSub: { fontSize: 12, color: COLORS.mossGreen, marginTop: 4 },
-  redeemBtn: { backgroundColor: COLORS.mossGreen, paddingVertical: 8, paddingHorizontal: 16, borderRadius: 8 },
+  redeemBtn: { backgroundColor: COLORS.mossGreen, paddingVertical: 8, paddingHorizontal: 16, borderRadius: 8, marginLeft: 10 },
   redeemText: { color: COLORS.darkBg, fontSize: 12, fontWeight: "800" },
 
   historyItem: {
@@ -155,24 +157,14 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     marginRight: 12,
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: "rgba(136,144,99,0.2)",
   },
-  backIcon: {
-    fontSize: 24,
-    color: "#fff",
-    fontWeight: "600",
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "700",
-    color: "#333",
-  },
-  content: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  placeholderText: {
-    fontSize: 18,
-    color: "#666",
-  },
+  historyTitle: { fontSize: 14, fontWeight: "600", color: COLORS.bone },
+  historyDate: { fontSize: 12, color: COLORS.mossGreen, marginTop: 4 },
+  pointsEarned: { fontSize: 14, fontWeight: "700", color: "#8BC98B" },
+  pointsSpent: { fontSize: 14, fontWeight: "700", color: "#C98B8B" },
+
+  navWrapper: { position: "absolute", bottom: 0, left: 0, right: 0 },
 });
