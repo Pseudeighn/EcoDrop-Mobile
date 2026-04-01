@@ -12,7 +12,6 @@ import {
 } from "react-native";
 import {SafeAreaView} from "react-native-safe-area-context";
 import BottomNavBar from "../components/BottomNavBar";
-import { COLORS } from "../constants/theme";
 import { styles, statStyles, tileStyles, actStyles } from "../styles/DashboardStyles";
 
 const { width } = Dimensions.get("window");

@@ -11,7 +11,6 @@ import {
 import { CameraView, useCameraPermissions } from "expo-camera";
 import BottomNavBar from "../components/BottomNavBar";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { COLORS } from "../constants/theme";
 import { styles } from "../styles/QRStyles";
 
 const { width, height } = Dimensions.get("window");
