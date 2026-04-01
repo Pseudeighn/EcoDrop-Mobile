@@ -5,13 +5,11 @@ const { width } = Dimensions.get("window");
 
 export const styles = StyleSheet.create({
 
-  // ── Layout ────────────────────────────────────────────
   safe: { flex: 1, backgroundColor: COLORS.darkBg },
   scroll: { flex: 1 },
   scrollContent: { paddingBottom: 24 },
   navWrapper: { position: "absolute", bottom: 0, left: 0, right: 0 },
 
-  // ── Hero ──────────────────────────────────────────────
   hero: {
     backgroundColor: COLORS.kombuGreen,
     paddingTop: 20,
@@ -29,7 +27,6 @@ export const styles = StyleSheet.create({
     shadowRadius: 16,
     elevation: 12,
   },
-  // Decorative background bubbles
   heroBubble1: {
     position: "absolute", width: 180, height: 180,
     borderRadius: 90, backgroundColor: "rgba(136,144,99,0.08)",
@@ -57,7 +54,6 @@ export const styles = StyleSheet.create({
   },
   editChipText: { fontSize: 12, color: COLORS.bone, fontWeight: "600" },
 
-  // Avatar
   avatarRing: {
     width: 108, height: 108, borderRadius: 54,
     borderWidth: 3, borderColor: COLORS.mossGreen,
@@ -98,7 +94,6 @@ export const styles = StyleSheet.create({
   },
   tierText: { fontSize: 12, color: COLORS.tan, fontWeight: "600" },
 
-  // ── Eco Score Card ─────────────────────────────────────
   scoreCard: {
     marginHorizontal: 20, marginTop: 20,
     backgroundColor: COLORS.cafeNoir,
@@ -131,7 +126,6 @@ export const styles = StyleSheet.create({
   },
   ringPct: { fontSize: 14, fontWeight: "800", color: COLORS.bone },
 
-  // ── Stats Row ──────────────────────────────────────────
   statsRow: {
     flexDirection: "row", marginHorizontal: 20,
     marginTop: 14, gap: 10,
@@ -148,14 +142,12 @@ export const styles = StyleSheet.create({
   statValue: { fontSize: 17, fontWeight: "800", color: COLORS.bone },
   statLabel: { fontSize: 11, color: COLORS.mossGreen, marginTop: 3, fontWeight: "500" },
 
-  // ── Sections ───────────────────────────────────────────
   section: { marginTop: 28, marginHorizontal: 20 },
   sectionTitle: {
     fontSize: 11, fontWeight: "800", color: COLORS.mossGreen,
     textTransform: "uppercase", letterSpacing: 2.5, marginBottom: 12,
   },
 
-  // ── Achievements ───────────────────────────────────────
   achievement: {
     flexDirection: "row", alignItems: "center", gap: 14,
     backgroundColor: COLORS.kombuGreen,
@@ -171,7 +163,6 @@ export const styles = StyleSheet.create({
   achievementSubtitle: { fontSize: 12, color: COLORS.mossGreen },
   achievementDot: { width: 8, height: 8, borderRadius: 4 },
 
-  // ── Action Items ───────────────────────────────────────
   actionItem: {
     flexDirection: "row", alignItems: "center", gap: 14,
     backgroundColor: COLORS.cafeNoir,
@@ -182,7 +173,6 @@ export const styles = StyleSheet.create({
   actionTitle: { fontSize: 14, fontWeight: "700", color: COLORS.bone, marginBottom: 2 },
   actionSubtitle: { fontSize: 12, color: COLORS.tan, opacity: 0.7 },
 
-  // ── Settings ───────────────────────────────────────────
   settingItem: {
     flexDirection: "row", alignItems: "center", gap: 14,
     backgroundColor: COLORS.kombuGreen,
@@ -194,7 +184,6 @@ export const styles = StyleSheet.create({
   settingText: { flex: 1, fontSize: 14, color: COLORS.bone, fontWeight: "500" },
   arrow: { fontSize: 20, color: COLORS.mossGreen },
 
-  // ── Logout ─────────────────────────────────────────────
   logoutButton: {
     marginHorizontal: 20, marginTop: 24,
     paddingVertical: 15, borderRadius: 16,
@@ -204,7 +193,6 @@ export const styles = StyleSheet.create({
   },
   logoutText: { color: "#C98B8B", fontSize: 15, fontWeight: "700", letterSpacing: 0.5 },
 
-  // ── Modals ─────────────────────────────────────────────
   modalOverlay: {
     flex: 1, backgroundColor: "rgba(0,0,0,0.72)",
     justifyContent: "flex-end",
@@ -245,7 +233,6 @@ export const styles = StyleSheet.create({
   cancelButton: { paddingVertical: 10, alignItems: "center" },
   cancelText: { color: COLORS.tan, fontSize: 14, opacity: 0.75 },
 
-  // ── Toggle rows (Notifications modal) ─────────────────
   toggleRow: {
     flexDirection: "row", alignItems: "center",
     paddingVertical: 14, borderBottomWidth: 1,
@@ -265,7 +252,6 @@ export const styles = StyleSheet.create({
   },
   toggleThumbOn: { alignSelf: "flex-end", backgroundColor: COLORS.darkBg },
 
-  // ── Privacy items ──────────────────────────────────────
   privacyItem: {
     flexDirection: "row", alignItems: "flex-start", gap: 14,
     paddingVertical: 14, borderBottomWidth: 1,
@@ -282,7 +268,6 @@ export const styles = StyleSheet.create({
   },
   dangerText: { color: "#C98B8B", fontWeight: "700", fontSize: 14 },
 
-  // ── Help items ─────────────────────────────────────────
   helpItem: {
     backgroundColor: "rgba(136,144,99,0.08)",
     borderRadius: 12, padding: 14, marginBottom: 10,
@@ -300,6 +285,5 @@ export const styles = StyleSheet.create({
     textAlign: "center", marginTop: 4,
   },
 
-  // ── Content layout ─────────────────────────────────────
   contentContainer: { paddingBottom: 24 },
 });

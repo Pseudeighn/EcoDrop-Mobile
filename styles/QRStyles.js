@@ -9,7 +9,6 @@ export const styles = StyleSheet.create({
   },
   safe: { flex: 1, alignItems: "center", paddingBottom: 24 },
 
-  // ── Header — centered, no side buttons ─────────────────
   header: {
     width: "100%",
     alignItems: "center",
@@ -28,7 +27,6 @@ export const styles = StyleSheet.create({
     textShadowRadius: 6,
   },
 
-  // ── Card ────────────────────────────────────────────────
   card: {
     backgroundColor: COLORS.cafeNoir,
     borderRadius: 24,

@@ -36,7 +36,7 @@ export const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginBottom: 12,
   },
-  rewardInfo: { flexDirection: "row", alignItems: "center", gap: 12, flex: 1 }, // Added flex: 1 so long text doesn't push the button off screen
+  rewardInfo: { flexDirection: "row", alignItems: "center", gap: 12, flex: 1 }, 
   
 
   rewardImg: { width: 40, height: 40, borderRadius: 8, backgroundColor: COLORS.bone },
