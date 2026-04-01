@@ -161,6 +161,18 @@ export default function DashboardScreen({ route, navigation }) {
           </View>
         </Animated.View>
 
+        <Animated.View style={{ opacity: fadeCards }}>
+          <View style={styles.tipCard}>
+            <Text style={styles.tipIcon}>💡</Text>
+            <View style={{ flex: 1 }}>
+              <Text style={styles.tipTitle}>Today's Eco Tip</Text>
+              <Text style={styles.tipBody}>
+                Drying plastic before recycling prevents contamination and doubles their recycling value.
+              </Text>
+            </View>
+          </View>
+        </Animated.View>
+
         <Animated.View style={{ opacity: fadeList }}>
           <Text style={styles.sectionTitle}>Recent Activity</Text>
           <View style={styles.activityCard}>

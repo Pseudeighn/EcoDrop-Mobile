@@ -120,7 +120,7 @@ export default function QRScreen({ navigation }) {
     alert(`QR Code scanned!\nData: ${data}`);
   };
 
-  const CARD_W = width * 0.82;
+  const CARD_W  = width * 0.82;
   const CAM_SIZE = CARD_W - 56;
 
   return (
@@ -135,14 +135,8 @@ export default function QRScreen({ navigation }) {
 
       <SafeAreaView style={styles.safe}>
 
+        {/* Header — label only, no buttons */}
         <View style={styles.header}>
-          <Pressable
-            style={({ pressed }) => [styles.iconBtn, pressed && { opacity: 0.7 }]}
-            onPress={() => navigation.goBack()}
-          >
-            <View style={styles.arrowLeft} />
-          </Pressable>
-
           <Text style={styles.scanLabel}>SCAN</Text>
 
           <Pressable style={({ pressed }) => [styles.iconBtn, pressed && { opacity: 0.7 }]}>
@@ -205,7 +199,7 @@ export default function QRScreen({ navigation }) {
           )}
         </View>
 
-        <BottomNavBar navigation={navigation} activeScreen="QRScreen"/>
+        <BottomNavBar navigation={navigation} activeScreen="QRScreen" />
 
       </SafeAreaView>
     </ImageBackground>

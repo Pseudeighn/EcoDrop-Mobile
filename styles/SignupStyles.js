@@ -1,8 +1,13 @@
 import { StyleSheet } from "react-native";
 
+<<<<<<< HEAD
 export const getStyles = (theme, isDarkMode) => StyleSheet.create({
   // Map safe area to the theme background
   safe: { flex: 1, backgroundColor: theme.background },
+=======
+export const styles = StyleSheet.create({
+  safe: { flex: 1, backgroundColor: COLORS.mossGreen },
+>>>>>>> 86050c5e13f1043a50127cc5873f5d1c9f168e76
   container: { flex: 1 },
   
   backgroundImg: {

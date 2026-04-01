@@ -57,16 +57,14 @@ export default function WalletScreen({ navigation }) {
       <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
         <Text style={styles.headerTitle}>My Eco-Wallet</Text>
         
-        {/* 1. The Balance Card */}
         <View style={styles.balanceCard}>
           <Text style={styles.balanceLabel}>AVAILABLE ECO-POINTS</Text>
           <Text style={styles.balancePoints}>1,250</Text>
           <View style={styles.tierBadge}>
-            <Text style={styles.tierText}>Bronze Tier</Text>
+            <Text style={styles.tierText}>🥉 Bronze Tier II</Text>
           </View>
         </View>
 
-        {/* 2. Available Rewards Section */}
         <Text style={styles.sectionTitle}>Redeem Rewards</Text>
         
         {rewards.map((reward) => (
@@ -86,7 +84,6 @@ export default function WalletScreen({ navigation }) {
           </View>
         ))}
 
-        {/* 3. Transaction History Section */}
         <Text style={[styles.sectionTitle, { marginTop: 10 }]}>Recent Transactions</Text>
         <View style={styles.historyItem}>
           <View>
@@ -104,7 +101,6 @@ export default function WalletScreen({ navigation }) {
         </View>
       </ScrollView>
 
-      {/* Footer Navigation */}
       <View style={styles.navWrapper}>
         <BottomNavBar navigation={navigation} activeScreen="Wallet" />
       </View>

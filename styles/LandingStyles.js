@@ -16,7 +16,7 @@ export const getStyles = (theme) => StyleSheet.create({
     width: 12,
     height: 12,
     borderRadius: 6,
-    backgroundColor: theme.primary, // Uses your mossGreen dynamically
+    backgroundColor: theme.primary, // Uses mossGreen dynamically
     marginHorizontal: 6,
   },
   logoContainer: {

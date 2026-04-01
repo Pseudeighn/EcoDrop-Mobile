@@ -71,7 +71,37 @@ export const getStyles = (theme) => StyleSheet.create({
   },
   content: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    backgroundColor: COLORS.kombuGreen,
+    borderTopLeftRadius: 35,
+    borderTopRightRadius: 35,
+    padding: 24,
+    marginTop: -40,
+  },
+  locationTitle: {
+    color: COLORS.bone,
+    fontSize: 16,
+    fontWeight: "700",
+    marginBottom: 6,
+  },
+  locationLabel: {
+    color: COLORS.mossGreen,
+    fontSize: 13,
+    marginBottom: 4,
+  },
+  statusLabel: {
+    color: COLORS.mossGreen,
+    fontSize: 13,
+    marginBottom: 12,
+  },
+  statusValue: {
+    color: "#A2C523",
+    fontWeight: "600",
+  },
+  footerNote: {
+    color: "#606C59",
+    fontSize: 11,
+    textAlign: "center",
+    marginTop: 16,
+    lineHeight: 16,
   },
 });

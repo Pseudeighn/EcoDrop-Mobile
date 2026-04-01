@@ -57,9 +57,8 @@ export default function EcoMapScreen({ navigation }) {
           <Text style={styles.backIcon}>←</Text>
         </Pressable>
 
-        <Pressable style={styles.navButton} onPress={toggleMenu}>
-          <Text style={styles.hamburgerIcon}>☰</Text>
-        </Pressable>
+      <View style={styles.header}>
+        <Text style={styles.headerLabel}>ECOMAP</Text>
       </View>
 
       {/* Animated Dropdown Menu */}
@@ -101,6 +100,8 @@ export default function EcoMapScreen({ navigation }) {
       <View style={styles.content}>
         <MapScreen />
       </View>
+
+      <BottomNavBar navigation={navigation} activeScreen="EcoMap" />
     </SafeAreaView>
   );
 }

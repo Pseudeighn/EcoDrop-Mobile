@@ -8,6 +8,7 @@ export const getStyles = (theme, isDarkMode) => StyleSheet.create({
     backgroundColor: isDarkMode ? "rgba(20, 28, 14, 0.55)" : "rgba(247, 242, 234, 0.65)",
   },
   safe: { flex: 1, alignItems: "center", paddingBottom: 24 },
+
   header: {
     width: "100%", flexDirection: "row", alignItems: "center",
     justifyContent: "space-between", paddingHorizontal: 20,
@@ -29,6 +30,7 @@ export const getStyles = (theme, isDarkMode) => StyleSheet.create({
     color: theme.text, textShadowColor: "rgba(0,0,0,0.1)",
     textShadowOffset: { width: 0, height: 2 }, textShadowRadius: 4,
   },
+
   card: {
     backgroundColor: theme.cardPrimary, borderRadius: 24,
     alignItems: "center", justifyContent: "space-evenly",
