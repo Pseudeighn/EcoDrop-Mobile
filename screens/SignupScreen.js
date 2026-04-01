@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
     backgroundColor: BROWN,
     borderRadius: 1,
   },
-  agreeText: { fontSize: 14, opacity: 0.75 },
+  agreeText: { fontSize: 14, fontWeight: 'bold', color: "#4A3B13", opacity: 0.75 },
 
   primaryBtn: {
     backgroundColor: BROWN,
