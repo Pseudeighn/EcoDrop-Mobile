@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { View, StyleSheet, Image, Animated } from "react-native";
+import { styles } from "../styles/LandingStyles";
 
 export default function LandingScreen({ navigation }) {
   const fadeTransition = useRef(new Animated.Value(0)).current;
@@ -108,33 +109,3 @@ export default function LandingScreen({ navigation }) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#E9DEC9",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  dotsContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  dot: {
-    width: 12,
-    height: 12,
-    borderRadius: 6,
-    backgroundColor: "#2F3A1E",
-    marginHorizontal: 6,
-  },
-  logoContainer: {
-    position: "absolute",
-    bottom: 0,
-    alignItems: "center",
-  },
-  logo: {
-    width: 350,
-    height: 350,
-  },
-});
