@@ -8,6 +8,7 @@ import {
   Image,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { styles } from "../styles/SigninStyles";
 
 export default function SigninScreen({ navigation }) {
   const [email, setEmail] = useState("");
@@ -128,82 +129,3 @@ export default function SigninScreen({ navigation }) {
     </SafeAreaView>
   );
 }
-
-const BG = "#8A9468";
-const BROWN = "#4A3B13";
-
-const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: BG },
-  container: { flex: 1 },
-  backgroundImg: {
-    position: "absolute",
-    width: "100%",
-    height: "100%",
-    top: 0,
-    left: 0,
-  },
-  spacer: { height: 280 },
-  card: {
-    flex: 1,
-    backgroundColor: "rgba(0,0,0,0.06)",
-    borderTopLeftRadius: 22,
-    borderTopRightRadius: 22,
-    padding: 20,
-  },
-  input: {
-    backgroundColor: "#fff",
-    borderRadius: 10,
-    paddingHorizontal: 14,
-    paddingVertical: 12,
-    marginBottom: 12,
-  },
-  passwordContainer: { position: "relative", marginBottom: 12 },
-  passwordInput: {
-    backgroundColor: "#fff",
-    borderRadius: 10,
-    paddingHorizontal: 14,
-    paddingVertical: 12,
-    paddingRight: 50,
-  },
-  eyeIcon: {
-    position: "absolute",
-    right: 14,
-    top: 0,
-    bottom: 0,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  eyeEmoji: { fontSize: 20 },
-  rowBetween: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    marginBottom: 14,
-  },
-  checkboxRow: { flexDirection: "row", alignItems: "center" },
-  checkbox: {
-    width: 18,
-    height: 18,
-    borderWidth: 2,
-    borderColor: BROWN,
-    borderRadius: 3,
-    marginRight: 8,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#fff",
-  },
-  checkboxChecked: { width: 10, height: 10, backgroundColor: BROWN, borderRadius: 1 },
-  rememberText: { fontSize: 15, fontWeight: 'bold', color: "#4A3B13", opacity: 0.8 },
-  small: { fontSize: 15, color: "#1F2937", opacity: 0.8 },
-  link: { color: BROWN, fontWeight: "700" },
-  primaryBtn: { backgroundColor: BROWN, paddingVertical: 14, borderRadius: 10, alignItems: "center", marginTop: 2 },
-  primaryBtnText: { color: "#fff", fontWeight: "800", letterSpacing: 1 },
-  orText: { textAlign: "center", marginVertical: 12, fontSize: 12, opacity: 0.6 },
-  socialRow: { flexDirection: "row", gap: 12 },
-  socialBtn: { flex: 1, paddingVertical: 12, borderRadius: 10, alignItems: "center", justifyContent: "center", backgroundColor: "#fff", flexDirection: "row", gap: 8 },
-  google: { opacity: 0.95 },
-  facebook: { opacity: 0.95 },
-  socialLogo: { width: 20, height: 20 },
-  socialText: { fontWeight: "700", opacity: 0.75 },
-  bottomRow: { marginTop: 14, flexDirection: "row", justifyContent: "center", alignItems: "center" },
-});

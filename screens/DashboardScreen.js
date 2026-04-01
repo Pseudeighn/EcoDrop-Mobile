@@ -12,19 +12,10 @@ import {
 } from "react-native";
 import {SafeAreaView} from "react-native-safe-area-context";
 import BottomNavBar from "../components/BottomNavBar";
+import { COLORS } from "../constants/theme";
+import { styles, statStyles, tileStyles, actStyles } from "../styles/DashboardStyles";
 
 const { width } = Dimensions.get("window");
-
-const C = {
-  cafeNoir:   "#4C3D19",
-  kombuGreen: "#354024",
-  mossGreen:  "#889063",
-  tan:        "#CFBB99",
-  bone:       "#E5D7C4",
-  white:      "#FFFFFF",
-  cream:      "#F7F2EA",
-  darkBg:     "#1E2416",
-};
 
 function LeafDot({ style }) {
   return (
@@ -34,7 +25,7 @@ function LeafDot({ style }) {
           width: 8,
           height: 8,
           borderRadius: 4,
-          backgroundColor: C.mossGreen,
+          backgroundColor: COLORS.mossGreen,
           opacity: 0.35,
         },
         style,
@@ -51,26 +42,6 @@ function StatPill({ value, label, accent }) {
     </View>
   );
 }
-const statStyles = StyleSheet.create({
-  pill: {
-    flex: 1,
-    alignItems: "center",
-    paddingVertical: 12,
-  },
-  value: {
-    fontSize: 20,
-    fontWeight: "800",
-    letterSpacing: 0.5,
-  },
-  label: {
-    fontSize: 10,
-    color: C.tan,
-    fontWeight: "500",
-    marginTop: 2,
-    letterSpacing: 0.4,
-    textTransform: "uppercase",
-  },
-});
 
 function ActionTile({ emoji, label, sub, onPress, dark }) {
   const scale = useRef(new Animated.Value(1)).current;
@@ -85,41 +56,12 @@ function ActionTile({ emoji, label, sub, onPress, dark }) {
     <Pressable onPress={press} style={{ flex: 1 }}>
       <Animated.View style={[tileStyles.tile, dark && tileStyles.tileDark, { transform: [{ scale }] }]}>
         <Text style={tileStyles.emoji}>{emoji}</Text>
-        <Text style={[tileStyles.label, dark && { color: C.bone }]}>{label}</Text>
-        <Text style={[tileStyles.sub, dark && { color: C.mossGreen }]}>{sub}</Text>
+        <Text style={[tileStyles.label, dark && { color: COLORS.bone }]}>{label}</Text>
+        <Text style={[tileStyles.sub, dark && { color: COLORS.mossGreen }]}>{sub}</Text>
       </Animated.View>
     </Pressable>
   );
 }
-const tileStyles = StyleSheet.create({
-  tile: {
-    backgroundColor: C.bone,
-    borderRadius: 18,
-    padding: 18,
-    alignItems: "flex-start",
-    gap: 6,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 4,
-  },
-  tileDark: {
-    backgroundColor: C.kombuGreen,
-  },
-  emoji: { fontSize: 28 },
-  label: {
-    fontSize: 14,
-    fontWeight: "700",
-    color: C.cafeNoir,
-    letterSpacing: 0.2,
-  },
-  sub: {
-    fontSize: 11,
-    color: C.mossGreen,
-    fontWeight: "500",
-  },
-});
 
 function ActivityRow({ emoji, title, date, points, negative }) {
   return (
@@ -135,43 +77,6 @@ function ActivityRow({ emoji, title, date, points, negative }) {
     </View>
   );
 }
-const actStyles = StyleSheet.create({
-  row: {
-    flexDirection: "row",
-    alignItems: "center",
-    paddingVertical: 12,
-    gap: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: "rgba(207,187,153,0.2)",
-  },
-  iconBox: {
-    width: 40,
-    height: 40,
-    borderRadius: 12,
-    backgroundColor: "rgba(207,187,153,0.15)",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  title: {
-    fontSize: 13,
-    fontWeight: "600",
-    color: C.bone,
-    letterSpacing: 0.1,
-  },
-  date: {
-    fontSize: 11,
-    color: C.mossGreen,
-    marginTop: 2,
-  },
-  pts: {
-    fontSize: 13,
-    fontWeight: "700",
-    color: "#8BC98B",
-  },
-  ptsNeg: {
-    color: "#C98B8B",
-  },
-});
 
 export default function DashboardScreen({ route, navigation }) {
   const userName = route?.params?.user?.name || "Eco-Warrior";
@@ -192,7 +97,7 @@ export default function DashboardScreen({ route, navigation }) {
 
   return (
     <SafeAreaView style={styles.safe}>
-      <StatusBar barStyle="light-content" backgroundColor={C.darkBg} />
+      <StatusBar barStyle="light-content" backgroundColor={COLORS.darkBg} />
 
       <ScrollView
         style={styles.scroll}
@@ -240,11 +145,11 @@ export default function DashboardScreen({ route, navigation }) {
             <View style={styles.heroDivider} />
 
             <View style={styles.statsRow}>
-              <StatPill value="12.5 kg" label="Plastic Saved"  accent={C.mossGreen} />
+              <StatPill value="12.5 kg" label="Plastic Saved"  accent={COLORS.mossGreen} />
               <View style={styles.statSep} />
-              <StatPill value="23"      label="Deposits"       accent={C.tan} />
+              <StatPill value="23"      label="Deposits"       accent={COLORS.tan} />
               <View style={styles.statSep} />
-              <StatPill value="4"       label="Vouchers Used"  accent="#C9A87B" />
+              <StatPill value="4"       label="Vouchers Used"  accent={COLORS.bone} />
             </View>
           </Pressable>
         </Animated.View>
@@ -325,176 +230,3 @@ export default function DashboardScreen({ route, navigation }) {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  safe: {
-    flex: 1,
-    backgroundColor: C.darkBg,
-  },
-  scroll: {
-    flex: 1,
-  },
-  scrollContent: {
-    paddingHorizontal: 20,
-    paddingTop: 16,
-  },
-
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    marginBottom: 24,
-  },
-  headerLeft: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 12,
-  },
-  logo: {
-    width: 40,
-    height: 40,
-    borderRadius: 10,
-  },
-  greeting: {
-    fontSize: 16,
-    fontWeight: "700",
-    color: C.bone,
-    letterSpacing: 0.2,
-  },
-  subGreeting: {
-    fontSize: 12,
-    color: C.mossGreen,
-    marginTop: 1,
-    fontWeight: "400",
-  },
-
-  heroBanner: {
-    backgroundColor: C.cafeNoir,
-    borderRadius: 24,
-    padding: 24,
-    marginBottom: 28,
-    overflow: "hidden",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.4,
-    shadowRadius: 16,
-    elevation: 10,
-    borderWidth: 1,
-    borderColor: "rgba(136,144,99,0.2)",
-  },
-  heroBannerTop: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "flex-start",
-    marginBottom: 16,
-  },
-  heroLabel: {
-    fontSize: 10,
-    fontWeight: "700",
-    letterSpacing: 2,
-    color: C.mossGreen,
-    textTransform: "uppercase",
-    marginBottom: 4,
-  },
-  heroPoints: {
-    fontSize: 46,
-    fontWeight: "900",
-    color: C.bone,
-    letterSpacing: -1,
-    lineHeight: 50,
-  },
-  heroBadge: {
-    backgroundColor: "rgba(136,144,99,0.2)",
-    borderRadius: 20,
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderWidth: 1,
-    borderColor: "rgba(136,144,99,0.35)",
-  },
-  heroBadgeText: {
-    fontSize: 12,
-    color: C.mossGreen,
-    fontWeight: "600",
-  },
-
-  progressTrack: {
-    height: 6,
-    backgroundColor: "rgba(255,255,255,0.08)",
-    borderRadius: 3,
-    marginBottom: 6,
-    overflow: "hidden",
-  },
-  progressFill: {
-    height: "100%",
-    backgroundColor: C.mossGreen,
-    borderRadius: 3,
-  },
-  progressLabel: {
-    fontSize: 11,
-    color: C.tan,
-    opacity: 0.7,
-    letterSpacing: 0.2,
-  },
-  heroDivider: {
-    height: 1,
-    backgroundColor: "rgba(207,187,153,0.12)",
-    marginVertical: 16,
-  },
-
-  statsRow: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  statSep: {
-    width: 1,
-    height: 32,
-    backgroundColor: "rgba(207,187,153,0.15)",
-  },
-
-  sectionTitle: {
-    fontSize: 13,
-    fontWeight: "700",
-    color: C.mossGreen,
-    letterSpacing: 2,
-    textTransform: "uppercase",
-    marginBottom: 14,
-    marginTop: 14
-  },
-
-  tileRow: {
-    flexDirection: "row",
-    gap: 12,
-  },
-
-  activityCard: {
-    backgroundColor: C.kombuGreen,
-    borderRadius: 20,
-    paddingHorizontal: 16,
-    paddingTop: 4,
-    paddingBottom: 4,
-    borderWidth: 1,
-    borderColor: "rgba(136,144,99,0.2)",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 8,
-    elevation: 5,
-  },
-  viewAllBtn: {
-    paddingVertical: 14,
-    alignItems: "center",
-  },
-  viewAllText: {
-    fontSize: 12,
-    color: C.mossGreen,
-    fontWeight: "600",
-    letterSpacing: 0.5,
-  },
-
-  navWrapper: {
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-  },
-});

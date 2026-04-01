@@ -9,6 +9,7 @@ import {
   Modal,
   TextInput,
 } from "react-native";
+import { styles } from "../styles/ProfileStyles";
 
 export default function ProfileScreen({ navigation, route }) {
   const user = route?.params?.user || { name: "Guest", email: "" };
@@ -140,46 +141,3 @@ function SettingItem({ label, onPress }) {
     </TouchableOpacity>
   );
 }
-
-const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#F3F4F6" },
-  header: {
-    backgroundColor: "#15803D",
-    alignItems: "center",
-    paddingVertical: 40,
-    borderBottomLeftRadius: 24,
-    borderBottomRightRadius: 24,
-  },
-  backButton: {
-    position: "absolute",
-    left: 16,
-    top: 44,
-    padding: 8,
-  },
-  backText: { fontSize: 24, color: "#fff" },
-  avatar: { width: 104, height: 104, borderRadius: 52, borderWidth: 3, borderColor: "#fff", marginBottom: 12 },
-  name: { fontSize: 22, fontWeight: "700", color: "#fff" },
-  email: { fontSize: 14, color: "#DCFCE7", marginTop: 4 },
-  ecoBadge: { marginTop: 12, backgroundColor: "#22C55E", paddingHorizontal: 14, paddingVertical: 6, borderRadius: 20 },
-  ecoBadgeText: { color: "#fff", fontSize: 12, fontWeight: "600" },
-  statsRow: { flexDirection: "row", justifyContent: "space-between", marginTop: -28, marginHorizontal: 16 },
-  statCard: { flex: 1, backgroundColor: "#fff", marginHorizontal: 6, paddingVertical: 18, borderRadius: 16, alignItems: "center", elevation: 2 },
-  statValue: { fontSize: 18, fontWeight: "700", color: "#15803D" },
-  statLabel: { fontSize: 12, marginTop: 4, color: "#6B7280" },
-  section: { marginTop: 28, marginHorizontal: 16 },
-  sectionTitle: { fontSize: 16, fontWeight: "700", marginBottom: 12, color: "#111827" },
-  achievement: { backgroundColor: "#ECFDF5", padding: 14, borderRadius: 12, marginBottom: 8 },
-  achievementText: { fontSize: 14, color: "#065F46", fontWeight: "600" },
-  settingItem: { backgroundColor: "#fff", padding: 16, borderRadius: 12, flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 8 },
-  settingText: { fontSize: 14, color: "#111827", fontWeight: "500" },
-  arrow: { fontSize: 18, color: "#9CA3AF" },
-  logoutButton: { marginTop: 24, marginHorizontal: 16, paddingVertical: 14, alignItems: "center" },
-  logoutText: { color: "#DC2626", fontSize: 15, fontWeight: "600" },
-  modalOverlay: { flex: 1, backgroundColor: "rgba(0,0,0,0.45)", justifyContent: "center", padding: 24 },
-  modalContent: { backgroundColor: "#fff", borderRadius: 20, padding: 20 },
-  modalTitle: { fontSize: 18, fontWeight: "700", marginBottom: 16, textAlign: "center" },
-  input: { borderWidth: 1, borderColor: "#E5E7EB", borderRadius: 12, padding: 14, marginBottom: 12, backgroundColor: "#F9FAFB" },
-  saveButton: { backgroundColor: "#15803D", paddingVertical: 14, borderRadius: 12, alignItems: "center", marginTop: 4 },
-  saveButtonText: { color: "#fff", fontSize: 16, fontWeight: "600" },
-  cancelText: { textAlign: "center", marginTop: 12, color: "#6B7280" },
-});

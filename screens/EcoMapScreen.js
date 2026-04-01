@@ -9,6 +9,7 @@ import {
 import MapScreen from '../components/MapScreen';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { COLORS } from "../constants/theme";
+import { styles } from "../styles/EcoMapStyles";
 
 export default function EcoMapScreen({ navigation }) {
   const [menuVisible, setMenuVisible] = useState(false);
@@ -93,70 +94,3 @@ export default function EcoMapScreen({ navigation }) {
     </SafeAreaView>
   );
 }
-
-const BUTTON_COLOR = "#4C3D19";
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-  },
-  topBar: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingHorizontal: 16,
-    paddingTop: 16,
-    paddingBottom: 8,
-    zIndex: 10,
-  },
-  navButton: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
-    backgroundColor: BUTTON_COLOR,
-    opacity: 0.7,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  backIcon: {
-    fontSize: 24,
-    color: "#fff",
-    fontWeight: "600",
-  },
-  hamburgerIcon: {
-    fontSize: 24,
-    color: "#fff",
-    fontWeight: "600",
-  },
-  dropdownMenu: {
-    position: "absolute",
-    top: 70,
-    right: 16,
-    backgroundColor: "#fff",
-    borderRadius: 12,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 8,
-    elevation: 5,
-    zIndex: 20,
-    minWidth: 160,
-    overflow: "hidden",
-  },
-  menuItem: {
-    paddingVertical: 14,
-    paddingHorizontal: 20,
-    borderBottomWidth: 1,
-    borderBottomColor: "#f0f0f0",
-  },
-  menuText: {
-    fontSize: 16,
-    color: "#333",
-    fontWeight: "500",
-  },
-  content: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
