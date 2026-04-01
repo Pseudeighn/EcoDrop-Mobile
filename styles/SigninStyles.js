@@ -56,7 +56,7 @@ export const styles = StyleSheet.create({
     width: 18,
     height: 18,
     borderWidth: 2,
-    borderColor: COLORS.cafeNoir, // Using theme brown!
+    borderColor: COLORS.cafeNoir, 
     borderRadius: 3,
     marginRight: 8,
     alignItems: "center",

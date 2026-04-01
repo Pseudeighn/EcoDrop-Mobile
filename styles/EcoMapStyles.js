@@ -1,67 +1,71 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 import { COLORS } from "../constants/theme";
 
+const { width } = Dimensions.get("window");
+
 export const styles = StyleSheet.create({
-  container: {
+  safe: {
     flex: 1,
-    backgroundColor: COLORS.white,
+    backgroundColor: COLORS.kombuGreen,
   },
-  topBar: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingHorizontal: 16,
-    paddingTop: 16,
-    paddingBottom: 8,
-    zIndex: 10,
-  },
-  navButton: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
-    backgroundColor: COLORS.cafeNoir,
-    opacity: 0.7,
-    justifyContent: "center",
+
+  header: {
+    width: "100%",
+    paddingHorizontal: 20,
+    paddingTop: 10,
+    paddingBottom: 12,
     alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: COLORS.kombuGreen,
   },
-  backIcon: {
-    fontSize: 24,
-    color: COLORS.white,
-    fontWeight: "600",
+  headerLabel: {
+    fontSize: 22,
+    fontWeight: "900",
+    letterSpacing: 5,
+    color: COLORS.bone,
+    textShadowColor: "rgba(0,0,0,0.5)",
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 6,
   },
-  hamburgerIcon: {
-    fontSize: 24,
-    color: COLORS.white,
-    fontWeight: "600",
-  },
-  dropdownMenu: {
-    position: "absolute",
-    top: 70,
-    right: 16,
-    backgroundColor: COLORS.white,
-    borderRadius: 12,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 8,
-    elevation: 5,
-    zIndex: 20,
-    minWidth: 160,
+
+  mapWrapper: {
+    flex: 1,
     overflow: "hidden",
   },
-  menuItem: {
-    paddingVertical: 14,
-    paddingHorizontal: 20,
-    borderBottomWidth: 1,
-    borderBottomColor: "#f0f0f0",
-  },
-  menuText: {
-    fontSize: 16,
-    color: "#333",
-    fontWeight: "500",
-  },
-  content: {
+
+  infoCard: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    backgroundColor: COLORS.kombuGreen,
+    borderTopLeftRadius: 35,
+    borderTopRightRadius: 35,
+    padding: 24,
+    marginTop: -40,
+  },
+  locationTitle: {
+    color: COLORS.bone,
+    fontSize: 16,
+    fontWeight: "700",
+    marginBottom: 6,
+  },
+  locationLabel: {
+    color: COLORS.mossGreen,
+    fontSize: 13,
+    marginBottom: 4,
+  },
+  statusLabel: {
+    color: COLORS.mossGreen,
+    fontSize: 13,
+    marginBottom: 12,
+  },
+  statusValue: {
+    color: "#A2C523",
+    fontWeight: "600",
+  },
+  footerNote: {
+    color: "#606C59",
+    fontSize: 11,
+    textAlign: "center",
+    marginTop: 16,
+    lineHeight: 16,
   },
 });

@@ -4,7 +4,7 @@ import { COLORS } from "../constants/theme";
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.landingBg, // Replaced hardcoded color
+    backgroundColor: COLORS.mossGreen, 
     alignItems: "center",
     justifyContent: "center",
   },
@@ -17,7 +17,7 @@ export const styles = StyleSheet.create({
     width: 12,
     height: 12,
     borderRadius: 6,
-    backgroundColor: COLORS.landingDot, // Replaced hardcoded color
+    backgroundColor: COLORS.kombuGreen, 
     marginHorizontal: 6,
   },
   logoContainer: {

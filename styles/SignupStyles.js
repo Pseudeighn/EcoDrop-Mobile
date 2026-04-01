@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 import { COLORS } from "../constants/theme";
 
 export const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: COLORS.signupBg },
+  safe: { flex: 1, backgroundColor: COLORS.mossGreen },
   container: { flex: 1 },
   backgroundImg: {
     position: "absolute", width: "100%", height: "100%", top: 0, left: 0,
@@ -30,23 +30,30 @@ export const styles = StyleSheet.create({
   eyeEmoji: { fontSize: 20 },
   agreeRow: { flexDirection: "row", alignItems: "center", marginBottom: 14 },
   checkbox: {
-    width: 18, height: 18, borderWidth: 2, borderColor: COLORS.signupBrown,
+    width: 18, height: 18, borderWidth: 2, borderColor: COLORS.cafeNoir, 
     borderRadius: 3, marginRight: 8, alignItems: "center",
     justifyContent: "center", backgroundColor: COLORS.white,
   },
   checkboxChecked: {
-    width: 10, height: 10, backgroundColor: COLORS.signupBrown, borderRadius: 1,
+    width: 10, height: 10, backgroundColor: COLORS.cafeNoir, borderRadius: 1, 
   },
-  agreeText: { fontSize: 14, opacity: 0.75 },
+  agreeText: { fontSize: 14, fontWeight: 'bold', color: COLORS.cafeNoir, opacity: 0.75 },
+
   primaryBtn: {
-    backgroundColor: COLORS.signupBrown, paddingVertical: 14,
-    borderRadius: 10, alignItems: "center",
+    backgroundColor: COLORS.cafeNoir,
+    paddingVertical: 14,
+    borderRadius: 10,
+    alignItems: "center",
+    marginTop: 2,
   },
   disabledBtn: { opacity: 0.5 },
+
   primaryBtnText: { color: COLORS.white, fontWeight: "800", letterSpacing: 1 },
+
   bottomRow: {
     marginTop: 14, flexDirection: "row", justifyContent: "center", alignItems: "center",
   },
-  small: { fontSize: 14, color: COLORS.textDark, opacity: 0.8 },
-  link: { color: COLORS.signupBrown, fontWeight: "700" },
+
+  small: { fontSize: 15, color: COLORS.darkBg, opacity: 0.8 },
+  link: { color: COLORS.cafeNoir, fontWeight: "700" },
 });

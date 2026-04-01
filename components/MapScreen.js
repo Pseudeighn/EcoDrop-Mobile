@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, Image, Dimensions, TouchableOpacity, StatusBar, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, Image, Dimensions, StatusBar, ScrollView } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
+import { COLORS } from '../constants/theme';
 
 const { width, height } = Dimensions.get('window');
 
@@ -26,8 +27,6 @@ const MapScreen = () => {
 
   return (
     <View style={styles.mainContainer}>
-      <StatusBar barStyle="light-content" />
-      {/* Interactive Map Section */}
       <View style={styles.mapContainer}>
         <MapView
           style={styles.map}
@@ -54,17 +53,23 @@ const MapScreen = () => {
         </MapView>
       </View>
 
-      {/* Scrollable Info Card Section */}
       <View style={styles.infoCard}>
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
+
           <Text style={styles.locationTitle}>{selectedBin.title}</Text>
+
           <Text style={styles.locationLabel}>{selectedBin.description}</Text>
+
           <Text style={styles.statusLabel}>
-            Status: <Text style={styles.statusValue}>{selectedBin.status}</Text>
+            Status:{" "}
+            <Text style={styles.statusValue}>{selectedBin.status}</Text>
           </Text>
+
           <Text style={styles.footerNote}>
             This map shows the nearest available EcoDrop bins and their current status.
+            Tap a pin to see more details.
           </Text>
+
         </ScrollView>
       </View>
     </View>
@@ -74,10 +79,11 @@ const MapScreen = () => {
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    backgroundColor: '#1E2519', // Dark background to prevent white flashes
+    backgroundColor: COLORS.kombuGreen,
   },
+
   mapContainer: {
-    height: height * 0.65,
+    height: height * 0.67,
     width: width,
     overflow: 'hidden',
     borderBottomLeftRadius: 35,
@@ -86,99 +92,48 @@ const styles = StyleSheet.create({
   map: {
     ...StyleSheet.absoluteFillObject,
   },
+
   infoCard: {
     flex: 1,
-    backgroundColor: '#2D3625', // Olive green card
+    backgroundColor: COLORS.kombuGreen,
     borderTopLeftRadius: 35,
     borderTopRightRadius: 35,
-    padding: 30,
-    marginTop: -40, // Pulls the card up over the map
+    paddingHorizontal: 28,
+    paddingTop: 24,
+    paddingBottom: 12,
+    marginTop: -35,
   },
-  floatingCheck: {
-    position: 'absolute',
-    right: 30,
-    top: -30,
-    backgroundColor: '#879F6B',
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
-    elevation: 10,
-    shadowColor: '#000',
-    shadowOpacity: 0.3,
-    shadowRadius: 5,
-  },
-  checkIcon: {
-    fontSize: 28,
-    color: '#1E2519',
-  },
-  locationContainer: {
-    flexDirection: 'row',
-    marginTop: 10,
-  },
-  visualGuide: {
-    alignItems: 'center',
-    marginRight: 15,
-    paddingTop: 5,
-  },
-  dotOuter: {
-    width: 18,
-    height: 18,
-    borderRadius: 9,
-    borderWidth: 2,
-    borderColor: 'white',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  dotInner: {
-    width: 6,
-    height: 6,
-    borderRadius: 3,
-    backgroundColor: 'white',
-  },
-  dashedLine: {
-    width: 1,
-    height: 45,
-    borderWidth: 1,
-    borderColor: 'white',
-    borderStyle: 'dashed',
-    marginVertical: 4,
-  },
-  locationPinSmall: {
-    width: 14,
-    height: 20,
-    backgroundColor: 'white',
-    borderBottomLeftRadius: 10,
-    borderBottomRightRadius: 10,
-    borderTopLeftRadius: 7,
-    borderTopRightRadius: 7,
-  },
-  textColumn: {
-    flex: 1,
-  },
+
   locationTitle: {
-    color: 'white',
-    fontSize: 15,
-    fontWeight: '600',
+    color: COLORS.bone,
+    fontSize: 16,          
+    fontWeight: '700',
+    marginBottom: 8,
+    lineHeight: 22,
   },
   locationLabel: {
-    color: '#8C9A86',
-    fontSize: 12,
+    color: COLORS.mossGreen,
+    fontSize: 13,
+    fontWeight: '500',
+    marginBottom: 4,
   },
   statusLabel: {
-    color: '#8C9A86',
-    fontSize: 12,
+    color: COLORS.mossGreen,
+    fontSize: 13,
+    fontWeight: '500',
+    marginBottom: 16,
   },
   statusValue: {
-    color: '#A2C523', // Bright green for status
+    color: '#A2C523',
+    fontWeight: '700',
   },
   footerNote: {
-    color: '#606C59',
-    fontSize: 10,
+    color: '#7a8a72',
+    fontSize: 12,
     textAlign: 'center',
-    marginTop: 'auto',
-  }
+    lineHeight: 18,
+    marginTop: 4,
+  },
 });
 
 export default MapScreen;

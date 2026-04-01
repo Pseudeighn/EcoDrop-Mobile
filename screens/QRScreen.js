@@ -11,20 +11,10 @@ import {
 import { CameraView, useCameraPermissions } from "expo-camera";
 import BottomNavBar from "../components/BottomNavBar";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { COLORS } from "../constants/theme";
 import { styles } from "../styles/QRStyles";
 
 const { width, height } = Dimensions.get("window");
-
-function HamburgerIcon({ color = COLORS.white, size = 20 }) {
-  const bar = { width: size, height: 2.5, backgroundColor: color, borderRadius: 2 };
-  return (
-    <View style={{ gap: 5 }}>
-      <View style={bar} />
-      <View style={[bar, { width: size * 0.7 }]} />
-      <View style={bar} />
-    </View>
-  );
-}
 
 function CameraIcon({ size = 32, color = COLORS.white }) {
   return (
@@ -83,8 +73,8 @@ function CameraIcon({ size = 32, color = COLORS.white }) {
 
 function QRCorners({ size = 220, cornerLen = 28, thickness = 3.5, color = COLORS.mossGreen }) {
   const corner = (pos) => {
-    const isTop    = pos.includes("top");
-    const isLeft   = pos.includes("Left");
+    const isTop  = pos.includes("top");
+    const isLeft = pos.includes("Left");
     return (
       <View
         key={pos}
@@ -93,7 +83,7 @@ function QRCorners({ size = 220, cornerLen = 28, thickness = 3.5, color = COLORS
           width: cornerLen,
           height: cornerLen,
           ...(isTop  ? { top: 0    } : { bottom: 0    }),
-          ...(isLeft ? { left: 0   } : { right: 0    }),
+          ...(isLeft ? { left: 0   } : { right: 0     }),
           borderTopWidth:    isTop  ? thickness : 0,
           borderBottomWidth: isTop  ? 0 : thickness,
           borderLeftWidth:   isLeft ? thickness : 0,
@@ -139,7 +129,7 @@ export default function QRScreen({ navigation }) {
     alert(`QR Code scanned!\nData: ${data}`);
   };
 
-  const CARD_W = width * 0.82;
+  const CARD_W  = width * 0.82;
   const CAM_SIZE = CARD_W - 56;
 
   return (
@@ -154,19 +144,9 @@ export default function QRScreen({ navigation }) {
 
       <SafeAreaView style={styles.safe}>
 
+        {/* Header — label only, no buttons */}
         <View style={styles.header}>
-          <Pressable
-            style={({ pressed }) => [styles.iconBtn, pressed && { opacity: 0.7 }]}
-            onPress={() => navigation.goBack()}
-          >
-            <View style={styles.arrowLeft} />
-          </Pressable>
-
           <Text style={styles.scanLabel}>SCAN</Text>
-
-          <Pressable style={({ pressed }) => [styles.iconBtn, pressed && { opacity: 0.7 }]}>
-            <HamburgerIcon />
-          </Pressable>
         </View>
 
         <View style={[styles.card, { width: CARD_W, flex: 0.8 }]}>
@@ -221,7 +201,7 @@ export default function QRScreen({ navigation }) {
           )}
         </View>
 
-        <BottomNavBar navigation={navigation} activeScreen="QRScreen"/>
+        <BottomNavBar navigation={navigation} activeScreen="QRScreen" />
 
       </SafeAreaView>
     </ImageBackground>

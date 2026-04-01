@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { View, StyleSheet, Image, Animated } from "react-native";
+import { COLORS } from "../constants/theme";
 import { styles } from "../styles/LandingStyles";
 
 export default function LandingScreen({ navigation }) {
