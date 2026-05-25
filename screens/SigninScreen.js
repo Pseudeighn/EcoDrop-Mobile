@@ -12,6 +12,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 // 1. Import Context and dynamic styles function
 import { ThemeContext } from "../context/ThemeContext";
 import { getStyles } from "../styles/SigninStyles";
+import { authService } from "../services/authService";
+import { ActivityIndicator, Alert } from "react-native";
 
 export default function SigninScreen({ navigation }) {
   // 2. Consume Theme Context
@@ -22,20 +24,30 @@ export default function SigninScreen({ navigation }) {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleSignIn = () => {
+  const handleSignIn = async () => {
     if (!email || !password) {
-      alert("Please enter email and password");
+      Alert.alert("Error", "Please enter email and password");
       return;
     }
 
-    const extractedName = email.split("@")[0];
-    const user = {
-      name: extractedName.charAt(0).toUpperCase() + extractedName.slice(1),
-      email: email,
-    };
+    setLoading(true);
+    try {
+      const data = await authService.login(email, password);
+      // Construct user object from API response
+      const user = {
+        name: data.user.first_name || email.split("@")[0],
+        email: data.user.email,
+        token: data.access_token,
+      };
 
-    navigation.navigate("Dashboard", { user });
+      navigation.navigate("Dashboard", { user });
+    } catch (error) {
+      Alert.alert("Login Failed", error.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -96,8 +108,16 @@ export default function SigninScreen({ navigation }) {
             </Pressable>
           </View>
 
-          <Pressable style={styles.primaryBtn} onPress={handleSignIn}>
-            <Text style={styles.primaryBtnText}>SIGN IN</Text>
+          <Pressable 
+            style={[styles.primaryBtn, loading && styles.disabledBtn]} 
+            onPress={handleSignIn}
+            disabled={loading}
+          >
+            {loading ? (
+              <ActivityIndicator color="#fff" />
+            ) : (
+              <Text style={styles.primaryBtnText}>SIGN IN</Text>
+            )}
           </Pressable>
 
           <Text style={styles.orText}>-------------------- OR CONTINUE WITH --------------------</Text>
