@@ -12,6 +12,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 // 1. Import Context and dynamic styles function
 import { ThemeContext } from "../context/ThemeContext";
 import { getStyles } from "../styles/SignupStyles";
+import { authService } from "../services/authService";
+import { ActivityIndicator, Alert } from "react-native";
 
 export default function SignupScreen({ navigation }) {
   // 2. Consume Theme Context
@@ -26,6 +28,38 @@ export default function SignupScreen({ navigation }) {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [agree, setAgree] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const handleSignup = async () => {
+    if (!agree) {
+      Alert.alert("Error", "You must agree to the terms.");
+      return;
+    }
+    if (pw !== pw2) {
+      Alert.alert("Error", "Passwords do not match!");
+      return;
+    }
+    if (!email || !pw || !firstName || !lastName) {
+      Alert.alert("Error", "Please fill in all fields.");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      await authService.signup({
+        email,
+        password: pw,
+        firstName,
+        lastName
+      });
+      Alert.alert("Success", "Account created successfully! Please sign in.");
+      navigation.navigate("SignIn");
+    } catch (error) {
+      Alert.alert("Signup Failed", error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <SafeAreaView style={styles.safe}>
@@ -119,14 +153,15 @@ export default function SignupScreen({ navigation }) {
           </Pressable>
 
           <Pressable
-            style={[styles.primaryBtn, !agree && styles.disabledBtn]}
-            onPress={() => {
-              if (!agree) return;
-              if (pw !== pw2) return alert("Passwords do not match!");
-              alert("Signed Up!");
-            }}
+            style={[styles.primaryBtn, (!agree || loading) && styles.disabledBtn]}
+            onPress={handleSignup}
+            disabled={loading}
           >
-            <Text style={styles.primaryBtnText}>SIGN UP</Text>
+            {loading ? (
+              <ActivityIndicator color="#fff" />
+            ) : (
+              <Text style={styles.primaryBtnText}>SIGN UP</Text>
+            )}
           </Pressable>
 
           <View style={styles.bottomRow}>
