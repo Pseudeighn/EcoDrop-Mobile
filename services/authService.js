@@ -1,4 +1,10 @@
-const API_BASE_URL = "http://10.0.2.2:8000/api/v1"; // Use your computer's IP if testing on a physical device
+// PRODUCTION (Render)
+const API_BASE_URL = "https://ecodrop-backend-1w8x.onrender.com/api/v1";
+
+// LOCAL (Change this when testing locally)
+// const API_BASE_URL = "http://10.0.2.2:8000/api/v1"; // For Android Emulator
+// const API_BASE_URL = "http://172.30.1.208:8000/api/v1"; // For Physical Device
+
 
 export const authService = {
   signup: async (userData) => {
