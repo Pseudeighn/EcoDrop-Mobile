@@ -126,20 +126,24 @@ export default function QRScreen({ navigation }) {
     setLoading(true);
 
     try {
-      // Assuming the QR code 'data' is the bin_id (e.g., "BIN001")
-      const binId = data;
+      // SIMULATION: Always use BIN001 regardless of what was scanned
+      const binId = "BIN001";
 
       if (!user) {
         Alert.alert("Error", "You must be logged in to make a deposit.");
+        setScanned(false);
+        setLoading(false);
         return;
       }
 
-      // Placeholder deposit data
+      // SIMULATION: Generate random weight between 0.5 and 3.5 kg
+      const randomWeight = (Math.random() * (3.5 - 0.5) + 0.5).toFixed(2);
+
       const depositData = {
         bin_id: binId,
         user_id: user.id,
         material: "Mixed Plastic", 
-        weight_kg: 1.2
+        weight_kg: parseFloat(randomWeight)
       };
 
       const result = await authService.createDeposit(depositData);
