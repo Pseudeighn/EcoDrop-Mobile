@@ -57,4 +57,27 @@ export const authService = {
       throw error;
     }
   },
+
+  createDeposit: async (depositData) => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/deposits`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "accept": "application/json",
+        },
+        body: JSON.stringify(depositData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.detail || "Deposit failed");
+      }
+
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  },
 };

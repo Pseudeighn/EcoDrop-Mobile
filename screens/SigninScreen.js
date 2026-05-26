@@ -11,13 +11,15 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 // 1. Import Context and dynamic styles function
 import { ThemeContext } from "../context/ThemeContext";
+import { UserContext } from "../context/UserContext";
 import { getStyles } from "../styles/SigninStyles";
 import { authService } from "../services/authService";
 import { ActivityIndicator, Alert } from "react-native";
 
 export default function SigninScreen({ navigation }) {
-  // 2. Consume Theme Context
+  // 2. Consume Context
   const { theme, isDarkMode } = useContext(ThemeContext);
+  const { login } = useContext(UserContext);
   const styles = getStyles(theme, isDarkMode);
 
   const [email, setEmail] = useState("");
@@ -37,11 +39,13 @@ export default function SigninScreen({ navigation }) {
       const data = await authService.login(email, password);
       // Construct user object from API response
       const user = {
+        id: data.user.id,
         name: data.user.first_name || email.split("@")[0],
         email: data.user.email,
         token: data.access_token,
       };
 
+      login(user);
       navigation.navigate("Dashboard", { user });
     } catch (error) {
       Alert.alert("Login Failed", error.message);

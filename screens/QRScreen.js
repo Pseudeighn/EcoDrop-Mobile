@@ -7,18 +7,22 @@ import {
   Dimensions,
   ImageBackground,
   StatusBar,
+  ActivityIndicator,
+  Alert,
 } from "react-native";
 import { CameraView, useCameraPermissions } from "expo-camera";
 import BottomNavBar from "../components/BottomNavBar";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-// 1. Import Theme Context and Styles
+// 1. Import Context and Styles
 import { ThemeContext } from "../context/ThemeContext";
+import { UserContext } from "../context/UserContext";
 import { getStyles } from "../styles/QRStyles";
+import { authService } from "../services/authService";
 
 const { width } = Dimensions.get("window");
 
-// 2. Updated Helper components to accept dynamic colors
+// Helper components...
 function HamburgerIcon({ color, size = 20 }) {
   const bar = { width: size, height: 2.5, backgroundColor: color, borderRadius: 2 };
   return (
@@ -95,11 +99,13 @@ function QRCorners({ size = 220, cornerLen = 28, thickness = 3.5, color }) {
 export default function QRScreen({ navigation }) {
   // 3. Consume Context
   const { theme, isDarkMode } = useContext(ThemeContext);
+  const { user } = useContext(UserContext);
   const styles = getStyles(theme, isDarkMode);
 
   const [permission, requestPermission] = useCameraPermissions();
   const [scanned, setScanned]           = useState(false);
   const [scanLine, setScanLine]         = useState(0);
+  const [loading, setLoading]           = useState(false);
 
   useEffect(() => {
     let dir = 1;
@@ -114,10 +120,39 @@ export default function QRScreen({ navigation }) {
     return () => clearInterval(iv);
   }, []);
 
-  const handleBarCodeScanned = ({ type, data }) => {
-    if (scanned) return;
+  const handleBarCodeScanned = async ({ type, data }) => {
+    if (scanned || loading) return;
     setScanned(true);
-    alert(`QR Code scanned!\nData: ${data}`);
+    setLoading(true);
+
+    try {
+      // Assuming the QR code 'data' is the bin_id (e.g., "BIN001")
+      const binId = data;
+
+      if (!user) {
+        Alert.alert("Error", "You must be logged in to make a deposit.");
+        return;
+      }
+
+      // Placeholder deposit data
+      const depositData = {
+        bin_id: binId,
+        user_id: user.id,
+        material: "Mixed Plastic", 
+        weight_kg: 1.2
+      };
+
+      const result = await authService.createDeposit(depositData);
+      Alert.alert(
+        "Deposit Successful!",
+        `You earned ${result.reward_points} points for depositing ${result.weight_kg}kg of ${result.material}.`
+      );
+    } catch (error) {
+      Alert.alert("Deposit Failed", error.message);
+      setScanned(false);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const CARD_W  = width * 0.82;
@@ -135,25 +170,24 @@ export default function QRScreen({ navigation }) {
 
       <SafeAreaView style={styles.safe}>
 
-        {/* Header — label only, no buttons */}
         <View style={styles.header}>
           <Text style={styles.scanLabel}>SCAN</Text>
-
           <Pressable style={({ pressed }) => [styles.iconBtn, pressed && { opacity: 0.7 }]}>
-            {/* Pass theme color to icons */}
             <HamburgerIcon color={theme.text} />
           </Pressable>
         </View>
 
         <View style={[styles.card, { width: CARD_W, flex: 0.8 }]}>
-
           <View style={styles.cameraCircle}>
-            {/* Pass theme color to icons */}
             <CameraIcon size={34} color={theme.text} />
           </View>
 
           <View style={[styles.cameraBox, { width: CAM_SIZE, aspectRatio: 1, alignSelf: "center" }]}>
-            {permission?.granted ? (
+            {loading ? (
+              <View style={StyleSheet.absoluteFill} alignItems="center" justifyContent="center">
+                <ActivityIndicator size="large" color={theme.primary} />
+              </View>
+            ) : permission?.granted ? (
               <>
                 <CameraView
                   style={StyleSheet.absoluteFill}
@@ -180,7 +214,6 @@ export default function QRScreen({ navigation }) {
             )}
 
             <View style={StyleSheet.absoluteFill} pointerEvents="none" alignItems="center" justifyContent="center">
-              {/* Pass theme color to corners */}
               <QRCorners size={CAM_SIZE - 24} color={theme.primary} />
             </View>
           </View>
@@ -189,7 +222,7 @@ export default function QRScreen({ navigation }) {
             Scan the bin's unique QR code to unlock the hatch and identify the user.
           </Text>
 
-          {scanned && (
+          {scanned && !loading && (
             <Pressable
               style={styles.rescanBtn}
               onPress={() => setScanned(false)}
